@@ -1,5 +1,6 @@
 #include "Chess_project.h"
 #include <QtWidgets/QApplication>
+#include <memory>
 
 int main(int argc, char *argv[])
 {
