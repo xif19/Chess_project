@@ -3,9 +3,9 @@
 #include <iomanip>
 
 Chess_project::Chess_project(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), ui(new Ui::Chess_projectClass)
 {
-    ui.setupUi(this);
+    ui->setupUi(this);
 }
 
 Chess_project::~Chess_project()

@@ -15,6 +15,8 @@ public:
     ~Chess_project();
     void mousePressEvent(QMouseEvent* event);
 
+
+
 private:
-    Ui::Chess_projectClass ui;
+    Ui::Chess_projectClass* ui;
 };

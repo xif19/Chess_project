@@ -9,6 +9,7 @@ class Box
 public:
 
 	Box() {
+		piece_ = nullptr;
 		occupied_ = false;
 	}
 
@@ -16,6 +17,10 @@ public:
 		piece_ = piece;
 		occupied_ = true;
 	};
+
+	shared_ptr<Piece> getPiece() {
+		return piece_;
+	}
 
 private:
 	shared_ptr<Piece> piece_;
