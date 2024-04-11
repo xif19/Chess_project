@@ -14,6 +14,7 @@ Chess_project::Chess_project(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     QGridLayout* gridLayout = new QGridLayout(ui->chessFrameWidget);
     gridLayout->setSpacing(0);
     gridLayout->setContentsMargins(0, 0, 0, 0);
