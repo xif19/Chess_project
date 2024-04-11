@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>681</width>
-    <height>400</height>
+    <width>785</width>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,35 +17,40 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>20</y>
-      <width>371</width>
-      <height>301</height>
+      <x>30</x>
+      <y>10</y>
+      <width>401</width>
+      <height>401</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="chessFrame">
+     <property name="leftMargin">
+      <number>1</number>
+     </property>
+     <property name="topMargin">
+      <number>1</number>
+     </property>
+     <property name="rightMargin">
+      <number>1</number>
+     </property>
+     <property name="bottomMargin">
+      <number>1</number>
+     </property>
      <item>
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::Shape::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Shadow::Raised</enum>
-       </property>
-      </widget>
+      <widget class="QWidget" name="chessFrameWidget" native="true"/>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>211</width>
-      <height>301</height>
+      <x>460</x>
+      <y>10</y>
+      <width>281</width>
+      <height>321</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+    <layout class="QVBoxLayout" name="menuFrame"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -53,8 +58,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>681</width>
-     <height>22</height>
+     <width>785</width>
+     <height>33</height>
     </rect>
    </property>
   </widget>

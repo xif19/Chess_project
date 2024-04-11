@@ -4,9 +4,10 @@
 #include "Box.h"
 #include <string>
 #include <vector>
+#include <QWidget>
 
 using namespace std;
-class Board
+class Board : public QWidget
 {
 public:
 	Board() {
