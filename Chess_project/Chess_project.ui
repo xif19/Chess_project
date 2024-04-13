@@ -50,7 +50,11 @@
       <height>321</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="menuFrame"/>
+    <layout class="QVBoxLayout" name="menuFrame">
+     <item>
+      <widget class="QListWidget" name="listWidget"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

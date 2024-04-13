@@ -7,7 +7,7 @@
 #include <QWidget>
 
 using namespace std;
-class Board : public QWidget
+class Board
 {
 public:
 	Board() {

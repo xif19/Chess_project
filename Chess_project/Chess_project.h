@@ -7,6 +7,7 @@
 #include <iomanip>
 #include "Board.h"
 #include <QGraphicsView>
+#include "gridButton.h"
 
 class Chess_project : public QMainWindow
 {
@@ -17,12 +18,15 @@ public:
     ~Chess_project();
     void mousePressEvent(QMouseEvent* event);
     void handleMousePress(QGraphicsSceneMouseEvent* event);
-
+    void init(QGridLayout* gridLayout);
+    
 
 private:
     Ui::Chess_projectClass* ui;
     QGraphicsView* graphicsView;
+    //QVector<QVector<gridButton*>> buttons2DVector;
 
 private slots:
     void handleSquareClick(int row, int col);
+    
 };
