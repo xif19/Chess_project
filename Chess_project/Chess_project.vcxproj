@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box.h" />
-    <ClInclude Include="gridButton.h" />
+    <QtMoc Include="gridButton.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Board.h" />
   </ItemGroup>

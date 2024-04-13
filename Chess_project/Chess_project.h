@@ -8,6 +8,7 @@
 #include "Board.h"
 #include <QGraphicsView>
 #include "gridButton.h"
+#include <qpushbutton.h>
 
 class Chess_project : public QMainWindow
 {

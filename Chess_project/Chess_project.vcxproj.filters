@@ -66,8 +66,10 @@
     <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gridButton.h">
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="gridButton.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
   </ItemGroup>
 </Project>
