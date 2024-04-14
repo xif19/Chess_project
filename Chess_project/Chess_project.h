@@ -7,8 +7,8 @@
 #include <iomanip>
 #include "Board.h"
 #include <QGraphicsView>
-#include "gridButton.h"
 #include <qpushbutton.h>
+#include <QMessageBox>
 
 class Chess_project : public QMainWindow
 {
@@ -25,9 +25,10 @@ public:
 private:
     Ui::Chess_projectClass* ui;
     QGraphicsView* graphicsView;
-    //QVector<QVector<gridButton*>> buttons2DVector;
+    std::vector<std::vector<QPushButton*>> gridButtons;
 
 private slots:
-    void handleSquareClick(int row, int col);
+    void handleSquareClick();
+    void on_acceptMenuButton_clicked();
     
 };

@@ -90,7 +90,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
-    <ClCompile Include="gridButton.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Board.cpp" />
     <QtRcc Include="Chess_project.qrc" />
@@ -101,9 +100,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box.h" />
-    <QtMoc Include="gridButton.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Chess_project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="chess_piece_rook.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
