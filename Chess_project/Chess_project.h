@@ -10,25 +10,32 @@
 #include <qpushbutton.h>
 #include <QMessageBox>
 
-class Chess_project : public QMainWindow
-{
-    Q_OBJECT
+namespace vue {
+    enum enumImages { ROOK1 = 0, KING2 };
+    class Chess_project : public QMainWindow
+    {
+        Q_OBJECT
 
-public:
-    Chess_project(QWidget *parent = nullptr);
-    ~Chess_project();
-    void mousePressEvent(QMouseEvent* event);
-    void handleMousePress(QGraphicsSceneMouseEvent* event);
-    void init(QGridLayout* gridLayout);
-    
+    public:
+        Chess_project(QWidget* parent = nullptr);
+        ~Chess_project();
+        void mousePressEvent(QMouseEvent* event);
+        void handleMousePress(QGraphicsSceneMouseEvent* event);
+        void init(QGridLayout* gridLayout);
+        void putIcon(QPushButton* button, enumImages image);
 
-private:
-    Ui::Chess_projectClass* ui;
-    QGraphicsView* graphicsView;
-    std::vector<std::vector<QPushButton*>> gridButtons;
 
-private slots:
-    void handleSquareClick();
-    void on_acceptMenuButton_clicked();
-    
-};
+
+    private:
+        Ui::Chess_projectClass* ui;
+        QGraphicsView* graphicsView;
+        vector<vector<QPushButton*>> gridButtons;
+        QVector<QPixmap> pieceImages;
+
+
+    private slots:
+        void handleSquareClick();
+        void on_acceptMenuButton_clicked();
+
+    };
+}

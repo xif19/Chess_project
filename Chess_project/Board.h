@@ -49,6 +49,8 @@ public:
 			return nullptr;
 		}
 	}
+
+
 private:
 	static const int NB_LINES = 8;
 	static const int NB_COLUMNS = 8;

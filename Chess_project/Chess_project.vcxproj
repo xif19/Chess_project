@@ -105,12 +105,15 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Chess_project.rc" />
+    <ClInclude Include="resource3.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="chess_piece_rook.png" />
+    <Image Include="king2.png" />
+    <Image Include="rook1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Chess_project.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
