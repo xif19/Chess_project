@@ -11,7 +11,7 @@
 #include <QMessageBox>
 
 namespace vue {
-    enum enumImages { ROOK1 = 0, KING2 };
+    enum enumImages { KING_B = 0, KING_W, QUEEN_B, QUEEN_W, ROOK_B, ROOK_W, KNIGHT_B, KNIGHT_W, PAWN_B, PAWN_W, BISHOP_B, BISHOP_W};
     class Chess_project : public QMainWindow
     {
         Q_OBJECT
@@ -23,8 +23,6 @@ namespace vue {
         void handleMousePress(QGraphicsSceneMouseEvent* event);
         void init(QGridLayout* gridLayout);
         void putIcon(QPushButton* button, enumImages image);
-
-
 
     private:
         Ui::Chess_projectClass* ui;

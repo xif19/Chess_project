@@ -35,11 +35,19 @@ namespace vue {
         gridLayout->setSpacing(0);
         gridLayout->setContentsMargins(0, 0, 0, 0);
 
-
-        //Preloading images
-        //TODO: ADD ALL IMAGES HERE AND IN THE ENUM 
-        pieceImages.append(QPixmap("rook1.png"));
-        pieceImages.append(QPixmap("king2.png"));
+        //Preloading images in the vector 
+        pieceImages.append(QPixmap("Images/King_B.png"));
+        pieceImages.append(QPixmap("Images/King_W.png"));
+        pieceImages.append(QPixmap("Images/Queen_B.png"));
+        pieceImages.append(QPixmap("Images/Queen_W.png"));
+        pieceImages.append(QPixmap("Images/Rook_B.png"));
+        pieceImages.append(QPixmap("Images/Rook_W.png"));
+        pieceImages.append(QPixmap("Images/Knight_B.png"));
+        pieceImages.append(QPixmap("Images/Knight_W.png"));
+        pieceImages.append(QPixmap("Images/Pawn_B.png"));
+        pieceImages.append(QPixmap("Images/Pawn_W.png"));
+        pieceImages.append(QPixmap("Images/Bishop_B.png"));
+        pieceImages.append(QPixmap("Images/Bishop_W.png"));
 
         for (int row = 0; row < 8; ++row) {
             vector<QPushButton*> rowButtons;
@@ -69,7 +77,7 @@ namespace vue {
 
         //Add image if theres nothing 
         if (clickedButton->icon().isNull()) {
-            QIcon ButtonIcon(pieceImages[enumImages::KING2]);
+            QIcon ButtonIcon(pieceImages[enumImages::PAWN_B]);
             clickedButton->setIcon(ButtonIcon);
             clickedButton->setIconSize(QSize(50, 50));
         }
@@ -99,7 +107,7 @@ namespace vue {
         if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
             for (int col = 0; col < 8; col++) {
                 QPushButton* button = gridButtons[0][col];
-                putIcon(button, enumImages::ROOK1);
+                putIcon(button, enumImages::KING_W);
             }
         }
     }

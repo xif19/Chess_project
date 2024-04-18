@@ -81,21 +81,51 @@
     <ClInclude Include="resource3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="chess_piece_rook.png">
-      <Filter>Resource Files\Images</Filter>
-    </Image>
-    <Image Include="king2.png">
-      <Filter>Resource Files\Images</Filter>
-    </Image>
-    <Image Include="rook1.png">
-      <Filter>Resource Files\Images</Filter>
-    </Image>
+    <ClInclude Include="resource4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Chess_project.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\King_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Bishop_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Bishop_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\King_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Knight_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Knight_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Pawn_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Pawn_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Queen_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Queen_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Rook_B.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\Rook_W.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

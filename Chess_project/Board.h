@@ -1,13 +1,12 @@
 #pragma once
 #include <map>
-#include "Piece.h"
 #include "Box.h"
 #include <string>
 #include <vector>
 #include <QWidget>
 
 using namespace std;
-class Board
+class Board 
 {
 public:
 	Board() {
@@ -25,6 +24,14 @@ public:
 
 	void addingPiece(shared_ptr<Piece> piece, pair<int, int> pos) {
 		arrBoard[pos.first][pos.second]->getPiece() = piece;
+
+		//If there are more then 3 kings, raise an exception
+		if (piece->getType() == Type::KING) {
+			kingCount_++;
+			if (kingCount_ > 3) {
+				throw runtime_error("More than 3 kings!");
+			}
+		}
 	}
 
 	bool isOccupied(pair<int, int> pos) {
@@ -50,11 +57,19 @@ public:
 		}
 	}
 
+	//TODO
+	//Rook 0,0 black
+	void initBoard0() {
+		unordered_map<pair<int, int>, shared_ptr<Piece>> board0 = { {make_pair(0,0), make_shared<Piece>(Color::BLACK, Type::ROOK)}
+		};
+	}
+
 
 private:
 	static const int NB_LINES = 8;
 	static const int NB_COLUMNS = 8;
 	
-	 shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS]; 
+	shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS]; 
+	int kingCount_ = 0; // Counter for king pieces
 };
 

@@ -106,14 +106,24 @@
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
     <ClInclude Include="resource3.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="chess_piece_rook.png" />
-    <Image Include="king2.png" />
-    <Image Include="rook1.png" />
+    <ClInclude Include="resource4.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Chess_project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\Bishop_B.png" />
+    <Image Include="Images\Bishop_W.png" />
+    <Image Include="Images\King_B.png" />
+    <Image Include="Images\King_W.png" />
+    <Image Include="Images\Knight_B.png" />
+    <Image Include="Images\Knight_W.png" />
+    <Image Include="Images\Pawn_B.png" />
+    <Image Include="Images\Pawn_W.png" />
+    <Image Include="Images\Queen_B.png" />
+    <Image Include="Images\Queen_W.png" />
+    <Image Include="Images\Rook_B.png" />
+    <Image Include="Images\Rook_W.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
