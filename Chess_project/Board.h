@@ -14,55 +14,22 @@ public:
 	}
 	~Board() {};
 
-	void createBoard() {
-		for (int i = 0; i < NB_LINES; i++) {
-			for (int j = 0; j < NB_COLUMNS; j++) {
-				arrBoard[i][j] = make_shared<Box>();
-			}
-		}
-	}
+	/**
+	* Creates a new board of shared pointers of Box objects
+	*/
+	void createBoard();
 
-	void addingPiece(shared_ptr<Piece> piece, pair<int, int> pos) {
-		arrBoard[pos.first][pos.second]->getPiece() = piece;
+	void addPiece(shared_ptr<Piece> piece, pair<int, int> pos);
 
-		//If there are more then 3 kings, raise an exception
-		if (piece->getType() == Type::KING) {
-			kingCount_++;
-			if (kingCount_ > 3) {
-				throw runtime_error("More than 3 kings!");
-			}
-		}
-	}
+	bool isOccupied(pair<int, int> pos);
 
-	bool isOccupied(pair<int, int> pos) {
-		if (arrBoard[pos.first][pos.second]->getPiece() == nullptr) {
-			return false;
-		}
-		return true;
-	}
+	void movePiece(pair<int, int> posBeginning, pair<int, int> posEnding);
 
-	void movePiece(pair<int, int> posBeginning, pair<int, int> posEnding) {
-		if (isOccupied(posBeginning) == true) {
-			arrBoard[posBeginning.first][posBeginning.second]->getPiece() = arrBoard[posEnding.first][posEnding.second]->getPiece();
-			arrBoard[posBeginning.first][posBeginning.second]->getPiece() = nullptr;
-		}
-	}
+	shared_ptr<Piece> getPieceAtPos(pair<int, int> pos);
 
-	shared_ptr<Piece> getPieceAtPos(pair<int, int> pos) {
-		if (isOccupied(pos) == true) {
-			return arrBoard[pos.first][pos.second]->getPiece();
-		}
-		else {
-			return nullptr;
-		}
-	}
-
-	//TODO
-	//Rook 0,0 black
-	void initBoard0() {
-		unordered_map<pair<int, int>, shared_ptr<Piece>> board0 = { {make_pair(0,0), make_shared<Piece>(Color::BLACK, Type::ROOK)}
-		};
-	}
+	// pair<row, col>
+	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
+	void initBoard0();
 
 
 private:

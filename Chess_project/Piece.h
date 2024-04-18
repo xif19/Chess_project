@@ -7,10 +7,7 @@ enum class Color {BLACK, WHITE};
 class Piece
 {	
 public:
-	Piece(Color color, Type type) {
-		color_ = color;
-		type_ = type;
-	}
+	Piece(Color color, Type type);
 	~Piece() {};
 
 	//Getters

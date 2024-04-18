@@ -11,15 +11,16 @@
 namespace vue {
 
     Chess_project::Chess_project(QWidget* parent)
-        : QMainWindow(parent), ui(new Ui::Chess_projectClass)
+        : QMainWindow(parent), ui(new Ui::Chess_projectClass), board()
     {
         ui->setupUi(this);
-        Board board;
+        //GridLayout in the widget specified for the chess frame
         QGridLayout* gridLayout = new QGridLayout(ui->chessFrameWidget);
+        initBoard(gridLayout);
 
-
-        init(gridLayout);
-        QListWidgetItem* item = new QListWidgetItem(QIcon("chess_piece_rook.png"), "Rook Double Attack");
+        //TODO: add this in a function 
+        //The different options in the list widget 
+        QListWidgetItem* item = new QListWidgetItem(QIcon("Images/Rook_W"), "Rook Double Attack");
         ui->listWidget->addItem(item);
         ui->listWidget->addItem("test");
     }
@@ -27,28 +28,31 @@ namespace vue {
     Chess_project::~Chess_project()
     {
         delete ui;
+        
     }
-
-    void Chess_project::init(QGridLayout* gridLayout) {
+    
+    void Chess_project::initBoard(QGridLayout* gridLayout) {
 
 
         gridLayout->setSpacing(0);
         gridLayout->setContentsMargins(0, 0, 0, 0);
 
         //Preloading images in the vector 
-        pieceImages.append(QPixmap("Images/King_B.png"));
-        pieceImages.append(QPixmap("Images/King_W.png"));
-        pieceImages.append(QPixmap("Images/Queen_B.png"));
-        pieceImages.append(QPixmap("Images/Queen_W.png"));
-        pieceImages.append(QPixmap("Images/Rook_B.png"));
-        pieceImages.append(QPixmap("Images/Rook_W.png"));
-        pieceImages.append(QPixmap("Images/Knight_B.png"));
-        pieceImages.append(QPixmap("Images/Knight_W.png"));
-        pieceImages.append(QPixmap("Images/Pawn_B.png"));
-        pieceImages.append(QPixmap("Images/Pawn_W.png"));
-        pieceImages.append(QPixmap("Images/Bishop_B.png"));
-        pieceImages.append(QPixmap("Images/Bishop_W.png"));
+        pieceImages.append(QPixmap("Images/King_B.png")); //0
+        pieceImages.append(QPixmap("Images/King_W.png")); //1
+        pieceImages.append(QPixmap("Images/Queen_B.png")); //2
+        pieceImages.append(QPixmap("Images/Queen_W.png")); //3 
+        pieceImages.append(QPixmap("Images/Rook_B.png")); //4 
+        pieceImages.append(QPixmap("Images/Rook_W.png")); // 5
+        pieceImages.append(QPixmap("Images/Knight_B.png")); //6 
+        pieceImages.append(QPixmap("Images/Knight_W.png")); //7
+        pieceImages.append(QPixmap("Images/Pawn_B.png")); //8
+        pieceImages.append(QPixmap("Images/Pawn_W.png")); //9
+        pieceImages.append(QPixmap("Images/Bishop_B.png")); //10
+        pieceImages.append(QPixmap("Images/Bishop_W.png")); // 11
 
+
+        //Creates the chessboard and connects every button to the handleSquareClick method
         for (int row = 0; row < 8; ++row) {
             vector<QPushButton*> rowButtons;
             for (int col = 0; col < 8; ++col) {
@@ -73,6 +77,7 @@ namespace vue {
     void Chess_project::handleSquareClick()
     {
 
+        //Gets the specified button
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
 
         //Add image if theres nothing 
@@ -104,13 +109,27 @@ namespace vue {
 
         ui->listWidget->currentItem()->setBackground(Qt::red);
 
+        //TODO: make sure to delete all the board and reset everything when this button is pressed a second time.
+        //Checks if the clicked item is the one that matches the text
         if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
-            for (int col = 0; col < 8; col++) {
-                QPushButton* button = gridButtons[0][col];
-                putIcon(button, enumImages::KING_W);
+            board.initBoard0();
+            loadPiecesOnBoard();
+        }
+    }
+
+    void Chess_project::loadPiecesOnBoard() {
+        for (int col = 0; col < 8; col++) {
+            for (int row = 0; row < 8; row++) {
+                pair<int, int> position = make_pair(row, col);
+                if (board.isOccupied(position) == true) {
+                    shared_ptr<Piece> piece = board.getPieceAtPos(position);
+                    QPushButton* button = gridButtons[row][col];
+                    putIcon(button, findImage(piece));
+                }
             }
         }
     }
+    
 
     void Chess_project::putIcon(QPushButton* button, enumImages image) {
         QPixmap pixmap(pieceImages[image]);
@@ -118,4 +137,73 @@ namespace vue {
         button->setIcon(ButtonIcon);
         button->setIconSize(QSize(50, 50));
     }
+
+
+    bool Chess_project::findColor(shared_ptr<Piece> piece) {
+        if (piece->getColor() == Color::BLACK) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+
+
+    enumImages Chess_project::findImage(shared_ptr<Piece> piece) {
+        //Type King, Queen, Rook, Knight, Pawn, Bishop
+        bool color = findColor(piece);
+        switch (piece->getType()) {
+            // 0 = black, 1 = white
+            case Type::KING:
+                if (color) {
+                    return enumImages::KING_B;
+                }
+                else {
+                    return enumImages::KING_W;
+                }
+                break;
+            case Type::QUEEN:
+                if (color) {
+                    return enumImages::QUEEN_B;
+                }
+                else {
+                    return enumImages::QUEEN_W;
+                }
+                break;
+            case Type::ROOK:
+                if (color) {
+                    return enumImages::ROOK_B;
+                }
+                else {
+                    return enumImages::ROOK_W;
+                }
+                break;
+            case Type::KNIGHT:
+                if (color) {
+                    return enumImages::KNIGHT_B;
+                }
+                else {
+                    return enumImages::KNIGHT_W;
+                }
+                break;
+            case Type::PAWN:
+                if (color) {
+                    return enumImages::PAWN_B;
+                }
+                else {
+                    return enumImages::PAWN_W;
+                }
+                break;
+            case Type::BISHOP:
+                if (color) {
+                    return enumImages::BISHOP_B;
+                }
+                else {
+                    return enumImages::BISHOP_W;
+                }
+                break;
+        }
+    }
+
+
 }
