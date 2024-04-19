@@ -112,8 +112,15 @@ namespace vue {
         //TODO: make sure to delete all the board and reset everything when this button is pressed a second time.
         //Checks if the clicked item is the one that matches the text
         if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
+            board.cleanBackendBoard();
+            clearBoard();
             board.initBoard0();
             loadPiecesOnBoard();
+        }
+
+        if (ui->listWidget->currentItem()->text() == "test") {
+            board.cleanBackendBoard();
+            clearBoard();
         }
     }
 
@@ -130,6 +137,14 @@ namespace vue {
         }
     }
     
+    void Chess_project::clearBoard() {
+        for (int col = 0; col < 8; col++) {
+            for (int row = 0; row < 8; row++) {
+                QPushButton* button = gridButtons[row][col];
+                button->setIcon(QIcon());
+            }
+        }
+    }
 
     void Chess_project::putIcon(QPushButton* button, enumImages image) {
         QPixmap pixmap(pieceImages[image]);

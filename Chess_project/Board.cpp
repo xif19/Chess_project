@@ -26,6 +26,18 @@ void Board::addPiece(shared_ptr<Piece> piece, pair<int, int> pos) {
 	}
 }
 
+void Board::removePiece(shared_ptr<Piece> piece, pair<int, int> pos) {
+	if (pos.first < 0 || pos.first >= NB_LINES || pos.second < 0 || pos.second >= NB_COLUMNS) {
+		throw out_of_range("Outside chessboard");
+	}
+
+	arrBoard[pos.first][pos.second]->setPiece(nullptr);
+
+	if (piece->getType() == Type::KING) {
+		kingCount_--;
+	}
+}
+
 bool Board::isOccupied(pair<int, int> pos) {
 	if (arrBoard[pos.first][pos.second]->getPiece() == nullptr) {
 		return false;
@@ -61,5 +73,16 @@ void Board::initBoard0() {
 
 	for (auto const& [piece, pos] : board0) {
 		addPiece(piece, pos);
+	}
+}
+
+void Board::cleanBackendBoard() {
+	for (int i = 0; i < NB_LINES; i++) {
+		for (int j = 0; j < NB_COLUMNS; j++) {
+			pair<int, int> pos = make_pair(i, j);
+			if (isOccupied(pos)) {
+				removePiece(getPieceAtPos(pos), pos);
+			}
+		}
 	}
 }

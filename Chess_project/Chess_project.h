@@ -82,6 +82,8 @@ namespace vue {
         */
         enumImages findImage(shared_ptr<Piece> piece);
 
+        void clearBoard();
+
     private:
         Ui::Chess_projectClass* ui;
         QGraphicsView* graphicsView;

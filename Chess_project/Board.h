@@ -21,6 +21,8 @@ public:
 
 	void addPiece(shared_ptr<Piece> piece, pair<int, int> pos);
 
+	void removePiece(shared_ptr<Piece> piece, pair<int, int> pos);
+
 	bool isOccupied(pair<int, int> pos);
 
 	void movePiece(pair<int, int> posBeginning, pair<int, int> posEnding);
@@ -30,6 +32,8 @@ public:
 	// pair<row, col>
 	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
 	void initBoard0();
+
+	void cleanBackendBoard();
 
 
 private:
