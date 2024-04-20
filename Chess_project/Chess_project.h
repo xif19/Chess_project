@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <iostream>
 #include <iomanip>
-#include "Board.h"
+#include "Game.h"
 #include <QGraphicsView>
 #include <qpushbutton.h>
 #include <QMessageBox>
@@ -89,7 +89,7 @@ namespace vue {
         QGraphicsView* graphicsView;
         vector<vector<QPushButton*>> gridButtons;
         QVector<QPixmap> pieceImages;
-        Board board;
+        Game game;
 
 
     private slots:

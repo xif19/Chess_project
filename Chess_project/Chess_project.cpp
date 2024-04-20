@@ -11,7 +11,7 @@
 namespace vue {
 
     Chess_project::Chess_project(QWidget* parent)
-        : QMainWindow(parent), ui(new Ui::Chess_projectClass), board()
+        : QMainWindow(parent), ui(new Ui::Chess_projectClass), game()
     {
         ui->setupUi(this);
         //GridLayout in the widget specified for the chess frame
@@ -112,14 +112,14 @@ namespace vue {
         //TODO: make sure to delete all the board and reset everything when this button is pressed a second time.
         //Checks if the clicked item is the one that matches the text
         if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
-            board.cleanBackendBoard();
+            game.getBoard().cleanBackendBoard();
             clearBoard();
-            board.initBoard0();
+            game.getBoard().initBoard0();
             loadPiecesOnBoard();
         }
 
         if (ui->listWidget->currentItem()->text() == "test") {
-            board.cleanBackendBoard();
+            game.getBoard().cleanBackendBoard();
             clearBoard();
         }
     }
@@ -128,8 +128,8 @@ namespace vue {
         for (int col = 0; col < 8; col++) {
             for (int row = 0; row < 8; row++) {
                 pair<int, int> position = make_pair(row, col);
-                if (board.isOccupied(position) == true) {
-                    shared_ptr<Piece> piece = board.getPieceAtPos(position);
+                if (game.getBoard().isOccupied(position) == true) {
+                    shared_ptr<Piece> piece = game.getBoard().getPieceAtPos(position);
                     QPushButton* button = gridButtons[row][col];
                     putIcon(button, findImage(piece));
                 }
