@@ -30,27 +30,36 @@ namespace modele {
 		vector<pair<int, int>> getMoveValidPiece(pair<int, int> pos) {
 			switch (board_.getPieceAtPos(pos)->getType()) {
 			case Type::KING:
-
-				break;
+				getMoveValidKing(pos); break;
 			case Type::QUEEN:
-
-				break;
+				return getMoveValidQueen(pos); break;
 			case Type::PAWN:
 				return getMoveValidPawn(pos); break;
 			case Type::BISHOP:
-
-				break;
+				return getMoveValidBishop(pos); break;
 			case Type::KNIGHT:
-
-				break;
+				return getMoveValidKnight(pos); break;
 			case Type::ROOK:
-
-				break;
+				getMoveValidRook(pos); break;
 			}
 		}
 
 		vector<pair<int, int>> getMoveValidKing(pair<int, int> pos) {
-
+			vector<pair<int, int>> directions = { make_pair(1,1), make_pair(-1,1), make_pair(1,-1), make_pair(-1,-1), make_pair(0,1), make_pair(1,0), make_pair(0,-1), make_pair(-1,0) };
+			vector<pair<int, int>> moveSetValid;
+			for (const auto& direction : directions) {
+				pair<int, int> futurPos = make_pair(pos.first+ direction.first,pos.second + direction.second);
+				if (isPositionInBoard(futurPos)) {
+					if (board_.isOccupied(futurPos)) {
+						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+							//si futurPos est pas en echec
+							moveSetValid.push_back(futurPos);
+					}
+					//si futurPos est pas en echec
+					moveSetValid.push_back(futurPos);
+				}
+			}
+			return moveSetValid;
 		}
 
 		vector<pair<int, int>> getMoveValidQueen(pair<int, int> pos) {
@@ -79,12 +88,25 @@ namespace modele {
 		}
 
 		vector<pair<int, int>> getMoveValidPawn(pair<int, int> pos) {
-			if (board_.getPieceAtPos(pos)->getColor() == Color::BLACK && isPositionInBoard(make_pair(pos.first, pos.second + 1)))
-				return { make_pair(pos.first, pos.second + 1) };
-			else if (board_.getPieceAtPos(pos)->getColor() == Color::WHITE && isPositionInBoard(make_pair(pos.first, pos.second - 1)))
-				return { make_pair(pos.first, pos.second - 1) };
+			vector<pair<int, int>> directions;
+			if(board_.getPieceAtPos(pos)->getColor() == Color::BLACK)
+				directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0)};//Black
 			else
-				return {}; //return empty vector
+				directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0) };//White
+			vector<pair<int, int>> moveSetValid;
+			for (const auto& direction : directions) {
+				pair<int, int> futurPos = make_pair( pos.first + direction.first, pos.second + direction.second);
+				if (isPositionInBoard(futurPos)){
+					if (futurPos.second == 0) {//aller devant
+						if(!board_.isOccupied(futurPos))
+							moveSetValid.push_back(futurPos);
+					}
+					else if(board_.isOccupied(futurPos)&& //diagonal
+						board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+						moveSetValid.push_back(futurPos);
+				}
+			}
+			return moveSetValid;
 		}
 
 		vector<pair<int, int>> getMoveValidBishop(pair<int, int> pos) {
