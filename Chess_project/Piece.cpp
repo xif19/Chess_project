@@ -1,6 +1,8 @@
 #include "Piece.h"
 
-Piece::Piece(Color color, Type type) {
-	color_ = color;
-	type_ = type;
+namespace modele {
+	Piece::Piece(Color color, Type type) {
+		color_ = color;
+		type_ = type;
+	}
 }

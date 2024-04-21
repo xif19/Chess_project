@@ -1,14 +1,15 @@
 #include "Box.h"
+namespace modele {
+	shared_ptr<Piece> Box::getPiece() const {
+		return piece_;
+	}
 
-shared_ptr<Piece> Box::getPiece() const {
-	return piece_;
-}
+	void Box::setPiece(shared_ptr<Piece> piece) {
+		piece_ = piece;
+		occupied_ = (piece != nullptr);
+	}
 
-void Box::setPiece(shared_ptr<Piece> piece) {
-	piece_ = piece;
-	occupied_ = (piece != nullptr);
-}
-
-bool Box::isOccupied() const {
-	return occupied_;
+	bool Box::isOccupied() const {
+		return occupied_;
+	}
 }

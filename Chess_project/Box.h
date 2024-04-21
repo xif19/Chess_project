@@ -3,24 +3,25 @@
 #include <memory>
 
 using namespace std;
+namespace modele {
+	class Box
+	{
+	public:
+		Box() : piece_(nullptr), occupied_(false) {}
 
-class Box
-{
-public:
-	Box() : piece_(nullptr), occupied_(false) {}
+		Box(shared_ptr<Piece> piece) : piece_(piece), occupied_(true) {}
 
-	Box(shared_ptr<Piece> piece) : piece_(piece), occupied_(true) {}
+		//Getters
+		shared_ptr<Piece> getPiece() const;
 
-	//Getters
-	shared_ptr<Piece> getPiece() const;
+		void setPiece(shared_ptr<Piece> piece);
 
-	void setPiece(shared_ptr<Piece> piece);
-
-	bool isOccupied() const;
+		bool isOccupied() const;
 
 
-private:
-	shared_ptr<Piece> piece_;
-	bool occupied_;
-};
+	private:
+		shared_ptr<Piece> piece_;
+		bool occupied_;
+	};
+}
 

@@ -9,6 +9,7 @@
 #include <QGraphicsView>
 #include <qpushbutton.h>
 #include <QMessageBox>
+using namespace modele;
 
 namespace vue {
     enum enumImages { KING_B = 0, KING_W, QUEEN_B, QUEEN_W, ROOK_B, ROOK_W, KNIGHT_B, KNIGHT_W, PAWN_B, PAWN_W, BISHOP_B, BISHOP_W};
@@ -83,6 +84,8 @@ namespace vue {
         enumImages findImage(shared_ptr<Piece> piece);
 
         void clearBoard();
+
+        void load3KingsImages();
 
     private:
         Ui::Chess_projectClass* ui;

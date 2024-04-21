@@ -8,6 +8,8 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <qpushbutton.h>
+
+using namespace modele;
 namespace vue {
 
     Chess_project::Chess_project(QWidget* parent)
@@ -22,7 +24,8 @@ namespace vue {
         //The different options in the list widget 
         QListWidgetItem* item = new QListWidgetItem(QIcon("Images/Rook_W"), "Rook Double Attack");
         ui->listWidget->addItem(item);
-        ui->listWidget->addItem("test");
+        QListWidgetItem* item2 = new QListWidgetItem(QIcon("Images/King_B"), "TRIPLE KING THREAT");
+        ui->listWidget->addItem(item2);
     }
 
     Chess_project::~Chess_project()
@@ -111,16 +114,26 @@ namespace vue {
 
         //TODO: make sure to delete all the board and reset everything when this button is pressed a second time.
         //Checks if the clicked item is the one that matches the text
-        if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
-            game.getBoard().cleanBackendBoard();
-            clearBoard();
-            game.getBoard().initBoard0();
-            loadPiecesOnBoard();
-        }
+        try {
+            if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
+                game.getBoard().cleanBackendBoard();
+                clearBoard();
+                game.getBoard().initBoard0();
+                loadPiecesOnBoard();
+            }
 
-        if (ui->listWidget->currentItem()->text() == "test") {
-            game.getBoard().cleanBackendBoard();
+            if (ui->listWidget->currentItem()->text() == "TRIPLE KING THREAT") {
+                game.getBoard().cleanBackendBoard();
+                clearBoard();
+                game.getBoard().initBoard1();
+                loadPiecesOnBoard();
+            }
+        }
+        catch (const runtime_error& e) {
+            load3KingsImages();
+            QMessageBox::critical(this, "HUGE ERROR", QString("This is not real chess: %1").arg(e.what()));
             clearBoard();
+
         }
     }
 
@@ -135,6 +148,17 @@ namespace vue {
                 }
             }
         }
+    }
+
+    void Chess_project::load3KingsImages() {
+        QPushButton* button = gridButtons[0][0];
+        putIcon(button, enumImages::KING_B);
+
+        QPushButton* button1 = gridButtons[3][3];
+        putIcon(button1, enumImages::KING_B);
+
+        QPushButton* button3 = gridButtons[5][5];
+        putIcon(button3, enumImages::KING_W);
     }
     
     void Chess_project::clearBoard() {
