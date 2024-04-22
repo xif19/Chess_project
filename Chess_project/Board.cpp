@@ -1,3 +1,11 @@
+/**
+* Cette classe gere le contenu du board, soit le tableau en deux dimension contenant des Box. Elle gere aussi le fait de bouger les pieces.
+* \file   Board.h
+* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
+* \date  21 avril 2024
+* Créé le 1er avril 2024
+*/
+
 #include "Board.h"
 
 namespace modele {

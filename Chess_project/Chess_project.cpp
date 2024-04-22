@@ -1,3 +1,12 @@
+
+/**
+* Cette classe gere le comportement de la partie, l'initialisation du jeu et de ses composants ainsi que la gestions du lien entre le front end et le back end.
+* \file   Chess_project.h
+* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
+* \date  21 avril 2024
+* Créé le 1er avril 2024
+*/
+
 #include "Chess_project.h"
 #include <iostream>
 #include <iomanip>
@@ -31,6 +40,13 @@ namespace vue {
     Chess_project::~Chess_project()
     {
         delete ui;
+
+        for (int col = 0; col < 8; col++) {
+            for (int row = 0; row < 8; row++) {
+                  QPushButton* button = gridButtons[row][col];
+                  delete button;
+            }
+        }
         
     }
     
@@ -190,6 +206,7 @@ namespace vue {
     }
     
     void Chess_project::clearBoard() {
+        clearColor();
         for (int col = 0; col < 8; col++) {
             for (int row = 0; row < 8; row++) {
                 QPushButton* button = gridButtons[row][col];
