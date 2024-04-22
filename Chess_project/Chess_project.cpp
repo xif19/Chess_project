@@ -43,16 +43,16 @@ namespace vue {
         //Preloading images in the vector 
         pieceImages.append(QPixmap("Images/King_W.png")); //0
         pieceImages.append(QPixmap("Images/King_B.png")); //1
-        pieceImages.append(QPixmap("Images/Queen_B.png")); //2
-        pieceImages.append(QPixmap("Images/Queen_W.png")); //3 
+        pieceImages.append(QPixmap("Images/Queen_W.png")); //2
+        pieceImages.append(QPixmap("Images/Queen_B.png")); //3 
         pieceImages.append(QPixmap("Images/Rook_W.png")); //4 
         pieceImages.append(QPixmap("Images/Rook_B.png")); // 5
-        pieceImages.append(QPixmap("Images/Knight_B.png")); //6 
-        pieceImages.append(QPixmap("Images/Knight_W.png")); //7
+        pieceImages.append(QPixmap("Images/Knight_W.png")); //6 
+        pieceImages.append(QPixmap("Images/Knight_B.png")); //7
         pieceImages.append(QPixmap("Images/Pawn_W.png")); //8
         pieceImages.append(QPixmap("Images/Pawn_B.png")); //9
-        pieceImages.append(QPixmap("Images/Bishop_B.png")); //10
-        pieceImages.append(QPixmap("Images/Bishop_W.png")); // 11
+        pieceImages.append(QPixmap("Images/Bishop_W.png")); //10
+        pieceImages.append(QPixmap("Images/Bishop_B.png")); // 11
 
 
         //Creates the chessboard and connects every button to the handleSquareClick method
