@@ -85,7 +85,7 @@ namespace modele {
 				int j = 1;
 				bool flag = true;
 				while (j < BOARD_MAX_SIZE - 1 && flag) {
-					pair<int, int> futurPos = make_pair(direction.first * j, direction.second * j);
+					pair<int, int> futurPos = make_pair(pos.first + (direction.first * j), pos.second + (direction.second * j));
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;
 						continue;
@@ -113,7 +113,7 @@ namespace modele {
 			for (const auto& direction : directions) {
 				pair<int, int> futurPos = make_pair( pos.first + direction.first, pos.second + direction.second);
 				if (isPositionInBoard(futurPos)){
-					if (futurPos.second == 0) {//aller devant
+					if (direction.second == 0) {//aller devant
 						if(!board_.isOccupied(futurPos))
 							moveSetValid.push_back(futurPos);
 					}
@@ -132,7 +132,7 @@ namespace modele {
 				int j = 1;
 				bool flag = true;
 				while (j < BOARD_MAX_SIZE - 1 && flag) {
-					pair<int, int> futurPos = make_pair(direction.first * j, direction.second * j);
+					pair<int, int> futurPos = make_pair(pos.first + (direction.first * j), pos.second + (direction.second * j));
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;
 						continue;
