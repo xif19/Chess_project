@@ -46,7 +46,7 @@ namespace modele {
 		vector<pair<int, int>> getMoveValidPiece(pair<int, int> pos) {
 			switch (board_.getPieceAtPos(pos)->getType()) {
 			case Type::KING:
-				getMoveValidKing(pos); break;
+				return getMoveValidKing(pos); break;
 			case Type::QUEEN:
 				return getMoveValidQueen(pos); break;
 			case Type::PAWN:
@@ -56,7 +56,7 @@ namespace modele {
 			case Type::KNIGHT:
 				return getMoveValidKnight(pos); break;
 			case Type::ROOK:
-				getMoveValidRook(pos); break;
+				return getMoveValidRook(pos); break;
 			}
 		}
 
@@ -175,7 +175,7 @@ namespace modele {
 			for (const auto& direction : directions) {
 				int j = 1;
 				bool flag = true;
-				while (j < BOARD_MAX_SIZE - 1 && flag) {
+				while (j < BOARD_MAX_SIZE && flag) {
 					pair<int, int> futurPos = make_pair(direction.first * j, direction.second * j);
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;

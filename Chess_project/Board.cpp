@@ -67,8 +67,8 @@ namespace modele {
 	// pair<row, col>
 	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
 	void Board::initBoard0() {
-		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::ROOK),make_pair(0,0)},
-			{make_shared<Piece>(Color::BLACK, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::WHITE, Type::KING), make_pair(4,5)}
+		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::ROOK),make_pair(0,0)},
+			{make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(4,5)}
 		};
 
 		for (auto const& [piece, pos] : board0) {
