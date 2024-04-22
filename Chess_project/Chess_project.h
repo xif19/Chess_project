@@ -87,6 +87,8 @@ namespace vue {
 
         void load3KingsImages();
 
+        void clearColor();
+
     private:
         Ui::Chess_projectClass* ui;
         QGraphicsView* graphicsView;

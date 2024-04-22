@@ -78,7 +78,8 @@ namespace vue {
     }
 
     void Chess_project::handleSquareClick()
-    {
+    {   
+        clearColor();
 
         //Gets the specified button
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
@@ -110,12 +111,15 @@ namespace vue {
         if (game.getBoard().isOccupied(pos)) {
             shared_ptr<Piece> piece = game.getBoard().getPieceAtPos(pos);
             if (piece->getColor() == game.getCurrentPlayer()) {
+                QPushButton* ownButton = gridButtons[pos.first][pos.second];
+                ownButton->setStyleSheet("background-color: green");
+
                 vector<pair<int, int>> allPossibleMoves = game.getMoveValidPiece(pos);
                 qDebug() << "yes";
 
                 for (int i = 0; i < allPossibleMoves.size(); i++) {
                     QPushButton* button = gridButtons[allPossibleMoves[i].first][allPossibleMoves[i].second];
-                    button->setStyleSheet("background-color: yellow");
+                    button->setStyleSheet("background-color: lightgreen");
                 }
             }
         }
@@ -149,6 +153,15 @@ namespace vue {
             QMessageBox::critical(this, "HUGE ERROR", QString("This is not real chess: %1").arg(e.what()));
             clearBoard();
 
+        }
+    }
+
+    void Chess_project::clearColor() {
+        for (int col = 0; col < 8; col++) {
+            for (int row = 0; row < 8; row++) {
+                QPushButton* button = gridButtons[row][col];
+                button->setStyleSheet("QPushButton { margin: 0; padding: 0; background-color: " + QString(((row + col) % 2 == 0) ? "white" : "lightgray") + "; }");
+            }
         }
     }
 
