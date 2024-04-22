@@ -176,7 +176,7 @@ namespace modele {
 				int j = 1;
 				bool flag = true;
 				while (j < BOARD_MAX_SIZE && flag) {
-					pair<int, int> futurPos = make_pair(direction.first * j, direction.second * j);
+					pair<int, int> futurPos = make_pair(pos.first + (direction.first * j), pos.second+(direction.second * j));
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;
 						continue;
