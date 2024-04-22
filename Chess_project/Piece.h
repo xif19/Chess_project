@@ -1,11 +1,4 @@
 #pragma once
-/**
-* Cette classe Piece gere les attributs d'une piece d'echec comme sa couleur et son type.
-* \file   Piece.h
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date  21 avril 2024
-* Créé le 1er avril 2024
-*/
 enum class Type { KING, QUEEN, PAWN, BISHOP, KNIGHT, ROOK };
 enum class Color {BLACK, WHITE};
 
