@@ -26,14 +26,16 @@ namespace modele {
 			return x >= 0 && x < BOARD_MAX_SIZE && y >= 0 && y < BOARD_MAX_SIZE;
 		}
 
-		bool isKingCheck(pair<int, int> pos) {
+		bool isKingCheck(pair<int, int> pos, Color color) {
 			for (int i = 0;i < BOARD_MAX_SIZE;i++) {
 				for (int j = 0;j < BOARD_MAX_SIZE;j++) {
 					if (board_.isOccupied(make_pair(i, j))) {
-						vector<pair<int, int>> possibleMoves = getMoveValidPiece(make_pair(i, j));
-						for (const auto& possibleTake : possibleMoves) {
-							if (possibleTake == pos)
-								return false;
+						if (board_.getPieceAtPos(make_pair(i, j))->getColor() != color) {
+							vector<pair<int, int>> possibleMoves = getMoveValidPiece(make_pair(i, j));
+							for (const auto& possibleTake : possibleMoves) {
+								if (possibleTake == pos)
+									return false;
+							}
 						}
 					}
 				}
@@ -66,10 +68,10 @@ namespace modele {
 				if (isPositionInBoard(futurPos)) {
 					if (board_.isOccupied(futurPos)) {
 						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
-							if(!isKingCheck(futurPos))//king not in check
+							if(!isKingCheck(futurPos, board_.getPieceAtPos(pos)->getColor()))//king not in check
 								moveSetValid.push_back(futurPos);
 					}
-					if (!isKingCheck(futurPos))//king not in check
+					if (!isKingCheck(futurPos, board_.getPieceAtPos(pos)->getColor()))//king not in check
 						moveSetValid.push_back(futurPos);
 				}
 			}
