@@ -84,7 +84,7 @@ namespace modele {
 			for (const auto& direction : directions) {
 				int j = 1;
 				bool flag = true;
-				while (j < BOARD_MAX_SIZE - 1 && flag) {
+				while (j < BOARD_MAX_SIZE && flag) {
 					pair<int, int> futurPos = make_pair(pos.first + (direction.first * j), pos.second + (direction.second * j));
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;
@@ -106,9 +106,9 @@ namespace modele {
 		vector<pair<int, int>> getMoveValidPawn(pair<int, int> pos) {
 			vector<pair<int, int>> directions;
 			if(board_.getPieceAtPos(pos)->getColor() == Color::BLACK)
-				directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0)};//Black
+				directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0) };//Black
 			else
-				directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0) };//White
+				directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0) };//White
 			vector<pair<int, int>> moveSetValid;
 			for (const auto& direction : directions) {
 				pair<int, int> futurPos = make_pair( pos.first + direction.first, pos.second + direction.second);
@@ -131,7 +131,7 @@ namespace modele {
 			for (const auto& direction : directions) {
 				int j = 1;
 				bool flag = true;
-				while (j < BOARD_MAX_SIZE - 1 && flag) {
+				while (j < BOARD_MAX_SIZE && flag) {
 					pair<int, int> futurPos = make_pair(pos.first + (direction.first * j), pos.second + (direction.second * j));
 					if (!isPositionInBoard(futurPos)) {
 						flag = false;
