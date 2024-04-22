@@ -163,7 +163,11 @@ namespace modele {
 			vector<pair<int, int>> moveSetValid;
 			for (const auto& position : moveSet) {
 				if (isPositionInBoard(position)) {
-					if (board_.getPieceAtPos(position)->getColor() != board_.getPieceAtPos(pos)->getColor())//si on verifie pour une piece mais qu'on est pas sur que la position existe, on va avoir une erreur donc on doit separer
+					if (board_.isOccupied(position)) {
+						if (board_.getPieceAtPos(position)->getColor() != board_.getPieceAtPos(pos)->getColor())//si on verifie pour une piece mais qu'on est pas sur que la position existe, on va avoir une erreur donc on doit separer
+							moveSetValid.push_back(position);
+					}
+					else
 						moveSetValid.push_back(position);
 				}
 			}
