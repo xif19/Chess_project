@@ -165,9 +165,9 @@ namespace vue {
             }
         }
         catch (const runtime_error& e) {
-            //load3KingsImages();
+            load3KingsImages();
             QMessageBox::critical(this, "HUGE ERROR", QString("This is not real chess: %1").arg(e.what()));
-            //clearBoard();
+            clearBoard();
 
         }
     }
