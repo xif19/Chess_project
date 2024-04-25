@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <QWidget>
+#include "ObservableVector.h"
 
 using namespace std;
 
@@ -45,14 +46,16 @@ namespace modele {
 
 		void cleanBackendBoard();
 
+		ObservableVector<shared_ptr<Piece>> deadWhitePiece;
+		ObservableVector<shared_ptr<Piece>> deadBlackPiece;
+
 
 	private:
 		static const int NB_LINES = 8;
 		static const int NB_COLUMNS = 8;
 
 
-		vector<shared_ptr<Piece>> deadWhitePiece;
-		vector<shared_ptr<Piece>> deadBlackPiece;
+		
 		shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS];
 		int kingCount_ = 0; // Counter for king pieces
 	};

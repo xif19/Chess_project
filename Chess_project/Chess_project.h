@@ -9,6 +9,7 @@
 #include <QGraphicsView>
 #include <qpushbutton.h>
 #include <QMessageBox>
+#include <algorithm>
 using namespace modele;
 
 namespace vue {
@@ -94,6 +95,8 @@ namespace vue {
         void switchPlayerTurn();
 
         pair<int, int> findPosition(QPushButton* clickedButton);
+
+        void updateDeadWhitePiecesVBox();
 
     private:
         Ui::Chess_projectClass* ui;

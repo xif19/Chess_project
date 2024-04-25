@@ -30,6 +30,12 @@ namespace vue {
         initBoard(gridLayout);
         turnLabel("WHITE'S TURN");
 
+
+        game.getBoard().deadWhitePiece.setCallback([&]() {
+            updateDeadWhitePiecesVBox();
+            });
+
+        
         //TODO: add this in a function 
         //The different options in the list widget 
         QListWidgetItem* item = new QListWidgetItem(QIcon("Images/Rook_W"), "Rook Double Attack");
@@ -38,6 +44,24 @@ namespace vue {
         ui->listWidget->addItem(item2);
         QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
         ui->listWidget->addItem(item3);
+        
+       
+    }
+
+    void Chess_project::updateDeadWhitePiecesVBox() {
+        // Clear existing items from the layout
+        QLayoutItem* item;
+        while ((item = ui->deadWhitePiecesVbox->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+
+        for (const auto& piece : game.getBoard().deadWhitePiece) {
+            qDebug() << " yes";
+            QLabel* pieceLabel = new QLabel;
+            pieceLabel->setPixmap(pieceImages[findImage(piece)]);
+            ui->deadWhitePiecesVbox->addWidget(pieceLabel);
+        }
     }
 
     Chess_project::~Chess_project()
@@ -171,9 +195,6 @@ namespace vue {
             if (it != allPossibleMoves.end()) {
                 // Move the piece
                 if (game.getBoard().isOccupied(oldPos)) {
-                    if (game.getBoard().isOccupied(pos)) {
-
-                    }
                     game.getBoard().movePiece(oldPos, pos);
                     QPushButton* oldButton = gridButtons[oldPos.first][oldPos.second];
                     oldButton->setIcon(QIcon());
