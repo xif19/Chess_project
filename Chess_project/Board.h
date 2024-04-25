@@ -30,6 +30,8 @@ namespace modele {
 
 		void movePiece(pair<int, int> posBeginning, pair<int, int> posEnding);
 
+		void takePiece(pair<int, int> piecePos);
+
 		shared_ptr<Piece> getPieceAtPos(pair<int, int> pos);
 
 		// pair<row, col>
@@ -48,6 +50,9 @@ namespace modele {
 		static const int NB_LINES = 8;
 		static const int NB_COLUMNS = 8;
 
+
+		vector<shared_ptr<Piece>> deadWhitePiece;
+		vector<shared_ptr<Piece>> deadBlackPiece;
 		shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS];
 		int kingCount_ = 0; // Counter for king pieces
 	};

@@ -171,6 +171,9 @@ namespace vue {
             if (it != allPossibleMoves.end()) {
                 // Move the piece
                 if (game.getBoard().isOccupied(oldPos)) {
+                    if (game.getBoard().isOccupied(pos)) {
+
+                    }
                     game.getBoard().movePiece(oldPos, pos);
                     QPushButton* oldButton = gridButtons[oldPos.first][oldPos.second];
                     oldButton->setIcon(QIcon());
@@ -224,6 +227,8 @@ namespace vue {
             turnLabel("Tour du joueur Noir");
         }
     }
+
+   
 
     pair<int, int> Chess_project::findPosition(QPushButton* clickedButton) {
         int row = -1, col = -1;
