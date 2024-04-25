@@ -179,6 +179,7 @@ namespace vue {
                     putIcon(newButton, findImage(currentPiece));
 
                     qDebug() << "piece moved";
+                    switchPlayerTurn();
                 }
             }
             else {
@@ -210,6 +211,17 @@ namespace vue {
                     }
                 }
             }
+        }
+    }
+
+    void Chess_project::switchPlayerTurn() {
+        if (game.getCurrentPlayer() == Color::BLACK) {
+            game.setCurrentPlayer(Color::WHITE);
+            turnLabel("Tour du joueur Blanc");
+        }
+        else {
+            game.setCurrentPlayer(Color::BLACK);
+            turnLabel("Tour du joueur Noir");
         }
     }
 

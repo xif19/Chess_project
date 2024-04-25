@@ -91,6 +91,8 @@ namespace vue {
 
         void interactWithPiece(pair<int, int> pos);
 
+        void switchPlayerTurn();
+
         pair<int, int> findPosition(QPushButton* clickedButton);
 
     private:

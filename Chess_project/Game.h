@@ -240,6 +240,11 @@ namespace modele {
 			return currentPlayer_;
 		}
 
+		//Setters
+		void setCurrentPlayer(Color newPlayer) {
+			currentPlayer_ = newPlayer;
+		}
+
 	private:
 		Board board_;
 		Color currentPlayer_;
