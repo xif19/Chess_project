@@ -28,6 +28,7 @@ namespace vue {
         //GridLayout in the widget specified for the chess frame
         QGridLayout* gridLayout = new QGridLayout(ui->chessFrameWidget);
         initBoard(gridLayout);
+        turnLabel("WHITE'S TURN");
 
         //TODO: add this in a function 
         //The different options in the list widget 
@@ -35,6 +36,8 @@ namespace vue {
         ui->listWidget->addItem(item);
         QListWidgetItem* item2 = new QListWidgetItem(QIcon("Images/King_B"), "TRIPLE KING THREAT");
         ui->listWidget->addItem(item2);
+        QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
+        ui->listWidget->addItem(item3);
     }
 
     Chess_project::~Chess_project()
@@ -93,6 +96,14 @@ namespace vue {
         qDebug() << event->pos();
     }
 
+    /**
+    * Everytime a square (button) on the grid layout is clicked, this
+    *   function is called.
+    *
+    * @param nothing
+    *
+    * @return nothing
+    */
     void Chess_project::handleSquareClick()
     {   
         clearColor();
@@ -100,55 +111,24 @@ namespace vue {
         //Gets the specified button
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
 
-        //Add image if theres nothing 
-        //if (clickedButton->icon().isNull()) {
-        //    QIcon ButtonIcon(pieceImages[enumImages::PAWN_B]);
-        //    clickedButton->setIcon(ButtonIcon);
-        //    clickedButton->setIconSize(QSize(50, 50));
-        //}
-        //else {
-        //    //Remove the image if theres something 
-        //    clickedButton->setIcon(QIcon());
-        //}
+        //get position
+        pair<int, int> pos = findPosition(clickedButton);
 
-        //Find position in the gridPane
-        int row = -1, col = -1;
-        for (size_t i = 0; i < gridButtons.size(); i++) {
-            auto it = std::find(gridButtons[i].begin(), gridButtons[i].end(), clickedButton);
-            if (it != gridButtons[i].end()) {
-                row = i;
-                col = it - gridButtons[i].begin();
-                break;
-            }
-        }
+        //The logic to move piece and everything else surrounding the board
+        interactWithPiece(pos);
 
-        pair<int, int> pos = make_pair(row, col);
 
-        if (game.getBoard().isOccupied(pos)) {
-            shared_ptr<Piece> piece = game.getBoard().getPieceAtPos(pos);
-            if (piece->getColor() == game.getCurrentPlayer()) {
-                QPushButton* ownButton = gridButtons[pos.first][pos.second];
-                ownButton->setStyleSheet("background-color: green");
+    }
 
-                vector<pair<int, int>> allPossibleMoves = game.getMoveValidPiece(pos);
-                qDebug() << "yes";
-
-                for (int i = 0; i < allPossibleMoves.size(); i++) {
-                    QPushButton* button = gridButtons[allPossibleMoves[i].first][allPossibleMoves[i].second];
-                    button->setStyleSheet("background-color: lightgreen");
-                }
-            }
-        }
-
-        qDebug() << "Pos Button: " << row << ", " << col;
+    void Chess_project::turnLabel(const QString text)
+    {
+        ui->turnLabel->setText(text);
     }
 
     void Chess_project::on_acceptMenuButton_clicked() {
 
         ui->listWidget->currentItem()->setBackground(Qt::red);
 
-        //TODO: make sure to delete all the board and reset everything when this button is pressed a second time.
-        //Checks if the clicked item is the one that matches the text
         try {
             if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
                 game.getBoard().cleanBackendBoard();
@@ -163,6 +143,13 @@ namespace vue {
                 game.getBoard().initBoard1();
                 loadPiecesOnBoard();
             }
+
+            if (ui->listWidget->currentItem()->text() == "The Queen's Testing Gardens") {
+                game.getBoard().cleanBackendBoard();
+                clearBoard();
+                game.getBoard().initBoard2();
+                loadPiecesOnBoard();
+            }
         }
         catch (const runtime_error& e) {
             load3KingsImages();
@@ -170,6 +157,74 @@ namespace vue {
             clearBoard();
 
         }
+    }
+
+    void Chess_project::interactWithPiece(pair<int, int> pos) {
+
+        /*
+        * It checks if a piece has already been clicked, if yes it proceeds to move it.
+        * Else, it gets the piece and checks all the possible moves available.
+        */
+        if (isPieceClicked) {
+            // Check if it's a valid move
+            auto it = std::find(allPossibleMoves.begin(), allPossibleMoves.end(), pos);
+            if (it != allPossibleMoves.end()) {
+                // Move the piece
+                if (game.getBoard().isOccupied(oldPos)) {
+                    game.getBoard().movePiece(oldPos, pos);
+                    QPushButton* oldButton = gridButtons[oldPos.first][oldPos.second];
+                    oldButton->setIcon(QIcon());
+
+                    QPushButton* newButton = gridButtons[pos.first][pos.second];
+                    putIcon(newButton, findImage(currentPiece));
+
+                    qDebug() << "piece moved";
+                }
+            }
+            else {
+                qDebug() << "Nope bad move";
+            }
+
+            // Reset 
+            isPieceClicked = false;
+            allPossibleMoves.clear();
+            clearColor();
+            oldPos = {};
+            currentPiece = nullptr;
+        }
+        else {
+            // When a new piece is clicked
+            if (game.getBoard().isOccupied(pos)) {
+                currentPiece = game.getBoard().getPieceAtPos(pos);
+                if (currentPiece->getColor() == game.getCurrentPlayer()) {
+                    QPushButton* ownButton = gridButtons[pos.first][pos.second];
+                    ownButton->setStyleSheet("background-color: green");
+
+                    allPossibleMoves = game.getMoveValidPiece(pos);
+                    oldPos = pos;
+                    isPieceClicked = true;
+
+                    for (int i = 0; i < allPossibleMoves.size(); i++) {
+                        QPushButton* button = gridButtons[allPossibleMoves[i].first][allPossibleMoves[i].second];
+                        button->setStyleSheet("background-color: lightgreen");
+                    }
+                }
+            }
+        }
+    }
+
+    pair<int, int> Chess_project::findPosition(QPushButton* clickedButton) {
+        int row = -1, col = -1;
+        for (size_t i = 0; i < gridButtons.size(); i++) {
+            auto it = std::find(gridButtons[i].begin(), gridButtons[i].end(), clickedButton);
+            if (it != gridButtons[i].end()) {
+                row = i;
+                col = it - gridButtons[i].begin();
+                break;
+            }
+        }
+        qDebug() << "Pos Button: " << row << ", " << col;
+        return make_pair(row, col);
     }
 
     void Chess_project::clearColor() {

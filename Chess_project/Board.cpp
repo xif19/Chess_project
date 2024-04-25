@@ -57,9 +57,9 @@ namespace modele {
 	}
 
 	void Board::movePiece(pair<int, int> posBeginning, pair<int, int> posEnding) {
-		if (isOccupied(posBeginning) == true) {
-			arrBoard[posBeginning.first][posBeginning.second]->getPiece() = arrBoard[posEnding.first][posEnding.second]->getPiece();
-			arrBoard[posBeginning.first][posBeginning.second]->getPiece() = nullptr;
+		if (isOccupied(posBeginning) && !isOccupied(posEnding)) {
+			arrBoard[posEnding.first][posEnding.second]->setPiece(arrBoard[posBeginning.first][posBeginning.second]->getPiece());
+			arrBoard[posBeginning.first][posBeginning.second]->setPiece(nullptr);
 		}
 	}
 
@@ -75,8 +75,8 @@ namespace modele {
 	// pair<row, col>
 	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
 	void Board::initBoard0() {
-		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::KING),make_pair(4,3)},
-			{make_shared<Piece>(Color::BLACK, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(4,5)}
+		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::ROOK),make_pair(4,3)},
+			{make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(4,5)}
 		};
 
 		for (auto const& [piece, pos] : board0) {
@@ -87,6 +87,18 @@ namespace modele {
 	void Board::initBoard1() {
 		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::KING),make_pair(0,0)},
 			{make_shared<Piece>(Color::BLACK, Type::KING), make_pair(3,3)}, { make_shared<Piece>(Color::WHITE, Type::KING), make_pair(5,5)}
+		};
+
+		for (auto const& [piece, pos] : board0) {
+			addPiece(piece, pos);
+		}
+	}
+
+	void Board::initBoard2() {
+		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::KING),make_pair(0,0)},
+			{make_shared<Piece>(Color::WHITE, Type::QUEEN), make_pair(5,6)}, { make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(0,5)},
+			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(0,3)}, {make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(7,7)},
+			{make_shared<Piece>(Color::WHITE, Type::KNIGHT), make_pair(6,7)}
 		};
 
 		for (auto const& [piece, pos] : board0) {

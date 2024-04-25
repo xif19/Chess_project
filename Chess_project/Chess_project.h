@@ -89,11 +89,22 @@ namespace vue {
 
         void clearColor();
 
+        void interactWithPiece(pair<int, int> pos);
+
+        pair<int, int> findPosition(QPushButton* clickedButton);
+
     private:
         Ui::Chess_projectClass* ui;
         QGraphicsView* graphicsView;
         vector<vector<QPushButton*>> gridButtons;
         QVector<QPixmap> pieceImages;
+
+        //Everything for moving pieces
+        vector<pair<int, int>> allPossibleMoves;
+        shared_ptr<Piece> currentPiece;
+        pair<int, int> oldPos;
+        bool isPieceClicked = false;
+
         Game game;
 
 
@@ -118,6 +129,8 @@ namespace vue {
         * @return nothing
         */
         void on_acceptMenuButton_clicked();
+
+        void turnLabel(const QString text);
 
     };
 }

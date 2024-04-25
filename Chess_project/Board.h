@@ -39,6 +39,8 @@ namespace modele {
 		//3 kings
 		void initBoard1();
 
+		void initBoard2();
+
 		void cleanBackendBoard();
 
 
