@@ -40,27 +40,8 @@ namespace vue {
         QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
         ui->listWidget->addItem(item3);
         
-        game.getBoard().deadWhitePiece.push_back(Type::KING);
-       
-    }
 
-    void Chess_project::updateDeadWhitePiecesVBox() {
-        // Clear the existing items in the vbox
-        QLayoutItem* item;
-        while ((item = ui->deadWhitePiecesVbox->takeAt(0)) != nullptr) {
-            delete item->widget();
-            delete item;
-        }
 
-        // Iterate through the deadWhitePiece vector
-        qDebug() << game.getBoard().deadWhitePiece.size();
-        for (const auto& piece : game.getBoard().deadWhitePiece) {
-            // Create a label to display the image of the dead piece
-            QLabel* label = new QLabel(this);
-            QPixmap pixmap = pieceImages[enumImages::KING_W];
-            label->setPixmap(pixmap.scaled(50, 50)); // Adjust size if needed
-            ui->deadWhitePiecesVbox->addWidget(label);
-        }
     }
 
 
@@ -245,7 +226,6 @@ namespace vue {
         else {
             game.setCurrentPlayer(Color::BLACK);
             turnLabel("Tour du joueur Noir");
-            updateDeadWhitePiecesVBox();
         }
     }
 

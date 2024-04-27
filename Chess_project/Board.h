@@ -45,8 +45,6 @@ namespace modele {
 
 		void cleanBackendBoard();
 
-		vector<Type> deadWhitePiece;
-		vector<Type> deadBlackPiece;
 
 
 	private:

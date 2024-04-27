@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>971</width>
-    <height>502</height>
+    <width>813</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -126,24 +126,13 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>60</y>
-      <width>91</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="deadWhitePiecesVbox"/>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>971</width>
+     <width>813</width>
      <height>21</height>
     </rect>
    </property>

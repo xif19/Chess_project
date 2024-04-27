@@ -67,10 +67,6 @@ namespace modele {
 
 	void Board::takePiece(pair<int, int> piecePos) {
 		shared_ptr<Piece> piece = getPieceAtPos(piecePos);
-		if (piece->getColor() == Color::BLACK)
-			deadBlackPiece.push_back(Type::PAWN);
-		else
-			deadWhitePiece.push_back(Type::BISHOP);
 		arrBoard[piecePos.first][piecePos.second]->setPiece(nullptr);
 	}
 
