@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include <QWidget>
-#include "ObservableVector.h"
 
 using namespace std;
 
@@ -46,8 +45,8 @@ namespace modele {
 
 		void cleanBackendBoard();
 
-		ObservableVector<shared_ptr<Piece>> deadWhitePiece;
-		ObservableVector<shared_ptr<Piece>> deadBlackPiece;
+		vector<Type> deadWhitePiece;
+		vector<Type> deadBlackPiece;
 
 
 	private:

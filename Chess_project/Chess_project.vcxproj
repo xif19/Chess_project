@@ -91,7 +91,6 @@
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="ObservableVector.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Board.cpp" />
     <QtRcc Include="Chess_project.qrc" />
@@ -103,7 +102,6 @@
   <ItemGroup>
     <ClInclude Include="Box.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="ObservableVector.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="resource.h" />

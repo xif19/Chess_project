@@ -30,11 +30,6 @@ namespace vue {
         initBoard(gridLayout);
         turnLabel("WHITE'S TURN");
 
-
-        game.getBoard().deadWhitePiece.setCallback([&]() {
-            updateDeadWhitePiecesVBox();
-            });
-
         
         //TODO: add this in a function 
         //The different options in the list widget 
@@ -45,24 +40,29 @@ namespace vue {
         QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
         ui->listWidget->addItem(item3);
         
+        game.getBoard().deadWhitePiece.push_back(Type::KING);
        
     }
 
     void Chess_project::updateDeadWhitePiecesVBox() {
-        // Clear existing items from the layout
+        // Clear the existing items in the vbox
         QLayoutItem* item;
         while ((item = ui->deadWhitePiecesVbox->takeAt(0)) != nullptr) {
             delete item->widget();
             delete item;
         }
 
+        // Iterate through the deadWhitePiece vector
+        qDebug() << game.getBoard().deadWhitePiece.size();
         for (const auto& piece : game.getBoard().deadWhitePiece) {
-            qDebug() << " yes";
-            QLabel* pieceLabel = new QLabel;
-            pieceLabel->setPixmap(pieceImages[findImage(piece)]);
-            ui->deadWhitePiecesVbox->addWidget(pieceLabel);
+            // Create a label to display the image of the dead piece
+            QLabel* label = new QLabel(this);
+            QPixmap pixmap = pieceImages[enumImages::KING_W];
+            label->setPixmap(pixmap.scaled(50, 50)); // Adjust size if needed
+            ui->deadWhitePiecesVbox->addWidget(label);
         }
     }
+
 
     Chess_project::~Chess_project()
     {
@@ -151,8 +151,6 @@ namespace vue {
 
     void Chess_project::on_acceptMenuButton_clicked() {
 
-        ui->listWidget->currentItem()->setBackground(Qt::red);
-
         try {
             if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
                 game.getBoard().cleanBackendBoard();
@@ -202,6 +200,7 @@ namespace vue {
                     QPushButton* newButton = gridButtons[pos.first][pos.second];
                     putIcon(newButton, findImage(currentPiece));
 
+                    
                     qDebug() << "piece moved";
                     switchPlayerTurn();
                 }
@@ -246,6 +245,7 @@ namespace vue {
         else {
             game.setCurrentPlayer(Color::BLACK);
             turnLabel("Tour du joueur Noir");
+            updateDeadWhitePiecesVBox();
         }
     }
 
