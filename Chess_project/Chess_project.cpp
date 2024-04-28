@@ -184,6 +184,15 @@ namespace vue {
                     
                     qDebug() << "piece moved";
                     switchPlayerTurn();
+                    pair<int,int> posCaca = game.getBoard().getPosKing(game.getCurrentPlayer());
+                    if (game.getCurrentPlayer() == Color::BLACK)
+                        qDebug() << "livePlayer NOIR";
+                    if (game.getCurrentPlayer() == Color::WHITE)
+                        qDebug() << "livePlayer BLANC";
+                    qDebug() << posCaca;
+                    if (isCheckMate(game.getBoard().getPosKing(game.getCurrentPlayer()))) {
+                        QMessageBox::critical(this, "JEE JEE", QString("Bien joué mon reuf!"));
+                    }
                 }
             }
             else {
@@ -229,6 +238,35 @@ namespace vue {
         }
     }
 
+    bool Chess_project::isCheckMate(pair<int,int> kingPos) {
+        qDebug() << "posRoiVerifCheckmate : " << kingPos;
+        if (kingPos.first == -1 && kingPos.second == -1)//si le king existe pas on continue
+            return false;
+
+        vector<pair<int, int>> directions = { make_pair(1,1), make_pair(-1,1), make_pair(1,-1), make_pair(-1,-1), make_pair(0,1), make_pair(1,0), make_pair(0,-1), make_pair(-1,0) };
+        vector<pair<int, int>> moveSetValid;
+        bool canBeCheckmate = false;
+        for (const auto& direction : directions) {
+            pair<int, int> futurPos = make_pair(kingPos.first + direction.first, kingPos.second + direction.second);
+            if (game.isPositionInBoard(futurPos)) {
+                if (game.getBoard().isOccupied(futurPos)) {
+                    if (game.getBoard().getPieceAtPos(futurPos)->getColor() != game.getBoard().getPieceAtPos(kingPos)->getColor()) {
+                        if (!game.isKingCheck(futurPos, game.getBoard().getPieceAtPos(kingPos)->getColor()))//king not in check
+                            moveSetValid.push_back(futurPos);
+                        else
+                            canBeCheckmate = true;
+                    }
+                }
+                else {
+                        if (!game.isKingCheck(futurPos, game.getBoard().getPieceAtPos(kingPos)->getColor()))//king not in check
+                            moveSetValid.push_back(futurPos);
+                        else
+                            canBeCheckmate = true;
+                }
+            }
+        }
+        return (canBeCheckmate && moveSetValid.size()==0);
+    }
    
 
     pair<int, int> Chess_project::findPosition(QPushButton* clickedButton) {

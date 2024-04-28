@@ -94,9 +94,10 @@ namespace vue {
 
         void switchPlayerTurn();
 
+        bool isCheckMate(pair<int, int> kingPos);
+
         pair<int, int> findPosition(QPushButton* clickedButton);
 
-        void updateDeadWhitePiecesVBox();
 
     private:
         Ui::Chess_projectClass* ui;

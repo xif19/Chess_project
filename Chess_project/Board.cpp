@@ -58,6 +58,13 @@ namespace modele {
 
 	void Board::movePiece(pair<int, int> posBeginning, pair<int, int> posEnding) {
 		if (isOccupied(posBeginning)) {
+			if (getPieceAtPos(posBeginning)->getType() == Type::KING)
+			{
+				qDebug() << "posBeginning : " << posBeginning << " posEnding : " << posEnding;
+				qDebug() << "posRoiBlancAvantMove : " << getWhiteKing() << " posRoiNoirAvantMove : " << getBlackKing();
+				setPosKing(posBeginning, posEnding);
+				qDebug() << "posRoiBlancApresMove : " << getWhiteKing() << " posRoiNoirApresMove : " << getBlackKing();
+			}
 			if (isOccupied(posEnding))
 				takePiece(posEnding);
 			arrBoard[posEnding.first][posEnding.second]->setPiece(arrBoard[posBeginning.first][posBeginning.second]->getPiece());
@@ -79,13 +86,31 @@ namespace modele {
 		}
 	}
 
+	void Board::setPosKing(pair<int, int> actualPos, pair<int, int> newPos) {
+		shared_ptr<Piece> piece = getPieceAtPos(actualPos);
+		if (piece != nullptr && piece->getType() == Type::KING) {
+			if (piece->getColor() == Color::BLACK)
+				setBlackKing(newPos);
+			else if (piece->getColor() == Color::WHITE)
+				setWhiteKing(newPos);
+		}
+	}
+
+	pair<int,int> Board::getPosKing(Color playerTurn) {
+		if (playerTurn == Color::BLACK)
+			return getBlackKing();
+		else if(playerTurn == Color::WHITE)
+			return getWhiteKing();
+	}
+
 	// pair<row, col>
 	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
 	void Board::initBoard0() {
 		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::ROOK),make_pair(4,3)},
 			{make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(4,5)}
 		};
-
+		setBlackKing(make_pair(-1, -1));
+		setWhiteKing(make_pair(-1,-1));
 		for (auto const& [piece, pos] : board0) {
 			addPiece(piece, pos);
 		}
@@ -95,19 +120,19 @@ namespace modele {
 		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::KING),make_pair(0,0)},
 			{make_shared<Piece>(Color::BLACK, Type::KING), make_pair(3,3)}, { make_shared<Piece>(Color::WHITE, Type::KING), make_pair(5,5)}
 		};
-
 		for (auto const& [piece, pos] : board0) {
 			addPiece(piece, pos);
 		}
 	}
 
 	void Board::initBoard2() {
-		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::ROOK),make_pair(3,3)},{ make_shared<Piece>(Color::BLACK, Type::KING),make_pair(0,0)},
+		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::BLACK, Type::ROOK),make_pair(3,3)},{ make_shared<Piece>(Color::BLACK, Type::KING),make_pair(1,1)},
 			{make_shared<Piece>(Color::WHITE, Type::QUEEN), make_pair(5,6)}, { make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(0,5)},
 			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(0,3)}, {make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(7,7)},
 			{make_shared<Piece>(Color::WHITE, Type::KNIGHT), make_pair(6,7)}
 		};
-
+		setBlackKing(make_pair(-1, -1));
+		setWhiteKing(make_pair(-1, -1));
 		for (auto const& [piece, pos] : board0) {
 			addPiece(piece, pos);
 		}

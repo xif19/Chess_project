@@ -45,14 +45,36 @@ namespace modele {
 
 		void cleanBackendBoard();
 
+		void setPosKing(pair<int, int> actualPos, pair<int, int> newPos);
 
+		pair<int, int> getPosKing(Color playerTurn);
+
+		//getters
+		pair<int, int> getWhiteKing() {
+			return posWhiteKing_;
+		}
+
+		pair<int, int> getBlackKing() {
+			return posBlackKing_;
+		}
+
+		//setters
+		void setWhiteKing(pair<int, int> whiteKingPos) {
+			posWhiteKing_ = whiteKingPos;
+		}
+
+		void setBlackKing(pair<int, int> blackKingPos) {
+			posBlackKing_ = blackKingPos;
+		}
+
+		
 
 	private:
 		static const int NB_LINES = 8;
 		static const int NB_COLUMNS = 8;
-
-
-		
+	
+		pair<int, int> posWhiteKing_;
+		pair<int, int> posBlackKing_;
 		shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS];
 		int kingCount_ = 0; // Counter for king pieces
 	};
