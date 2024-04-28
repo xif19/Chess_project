@@ -40,7 +40,8 @@ namespace vue {
         QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
         ui->listWidget->addItem(item3);
         
-
+        ui->vBoxDeadWhite->parentWidget()->setStyleSheet("background-color: gray");
+        ui->vBoxDeadBlack->parentWidget()->setStyleSheet("background-color: gray");
 
     }
 
