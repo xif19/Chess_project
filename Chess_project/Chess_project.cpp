@@ -134,23 +134,26 @@ namespace vue {
 
         try {
             if (ui->listWidget->currentItem()->text() == "Rook Double Attack") {
-                game.getBoard().cleanBackendBoard();
+                game.getBoard()->cleanBackendBoard();
                 clearBoard();
-                game.getBoard().initBoard0();
+                clearAllDeadPiecesLayouts();
+                game.getBoard()->initBoard0();
                 loadPiecesOnBoard();
             }
 
             if (ui->listWidget->currentItem()->text() == "TRIPLE KING THREAT") {
-                game.getBoard().cleanBackendBoard();
+                game.getBoard()->cleanBackendBoard();
                 clearBoard();
-                game.getBoard().initBoard1();
+                clearAllDeadPiecesLayouts();
+                game.getBoard()->initBoard1();
                 loadPiecesOnBoard();
             }
 
             if (ui->listWidget->currentItem()->text() == "The Queen's Testing Gardens") {
-                game.getBoard().cleanBackendBoard();
+                game.getBoard()->cleanBackendBoard();
                 clearBoard();
-                game.getBoard().initBoard2();
+                clearAllDeadPiecesLayouts();
+                game.getBoard()->initBoard2();
                 loadPiecesOnBoard();
             }
         }
@@ -173,8 +176,8 @@ namespace vue {
             auto it = std::find(allPossibleMoves.begin(), allPossibleMoves.end(), pos);
             if (it != allPossibleMoves.end()) {
                 // Move the piece
-                if (game.getBoard().isOccupied(oldPos)) {
-                    game.getBoard().movePiece(oldPos, pos);
+                if (game.getBoard()->isOccupied(oldPos)) {
+                    game.getBoard()->movePiece(oldPos, pos);
                     QPushButton* oldButton = gridButtons[oldPos.first][oldPos.second];
                     oldButton->setIcon(QIcon());
 
@@ -184,15 +187,18 @@ namespace vue {
                     
                     qDebug() << "piece moved";
                     switchPlayerTurn();
-                    pair<int,int> posCaca = game.getBoard().getPosKing(game.getCurrentPlayer());
+                    pair<int,int> pos = game.getBoard()->getPosKing(game.getCurrentPlayer());
                     if (game.getCurrentPlayer() == Color::BLACK)
                         qDebug() << "livePlayer NOIR";
                     if (game.getCurrentPlayer() == Color::WHITE)
                         qDebug() << "livePlayer BLANC";
-                    qDebug() << posCaca;
-                    if (isCheckMate(game.getBoard().getPosKing(game.getCurrentPlayer()))) {
-                        QMessageBox::critical(this, "JEE JEE", QString("Bien joué mon reuf!"));
+                    qDebug() << pos;
+
+                    if (isCheckMate(game.getBoard()->getPosKing(game.getCurrentPlayer()))) {
+                        showCheckMate();
                     }
+
+                    displayDeadPieces(game.getBoard()->getTakenPieceColor());
                 }
             }
             else {
@@ -208,8 +214,8 @@ namespace vue {
         }
         else {
             // When a new piece is clicked
-            if (game.getBoard().isOccupied(pos)) {
-                currentPiece = game.getBoard().getPieceAtPos(pos);
+            if (game.getBoard()->isOccupied(pos)) {
+                currentPiece = game.getBoard()->getPieceAtPos(pos);
                 if (currentPiece->getColor() == game.getCurrentPlayer()) {
                     QPushButton* ownButton = gridButtons[pos.first][pos.second];
                     ownButton->setStyleSheet("background-color: green");
@@ -227,6 +233,68 @@ namespace vue {
         }
     }
 
+    void Chess_project::displayDeadPieces(Color color) {
+        // Determine which vector and layout to use based on the color
+        std::vector<std::shared_ptr<Piece>> deadPieces;
+        QVBoxLayout* deadPiecesLayout;
+        if (color == Color::WHITE) {
+            deadPieces = game.getBoard()->getDeadWhitePieces();
+            deadPiecesLayout = ui->vBoxDeadWhite;
+        }
+        else {
+            deadPieces = game.getBoard()->getDeadBlackPieces();
+            deadPiecesLayout = ui->vBoxDeadBlack;
+        }
+
+        // Clear the existing items in the layout
+        clearDeadPiecesLayout(deadPiecesLayout);
+
+        // Iterate through the dead pieces vector
+        for (const auto& piece : deadPieces) {
+            // Create a QLabel to display the image
+            QLabel* label = new QLabel;
+
+            // Set the pixmap of the QLabel to the image corresponding to the piece
+            QPixmap pixmap(pieceImages[findImage(piece)]);
+
+            // Resize the pixmap if needed
+            pixmap = pixmap.scaled(50, 50, Qt::KeepAspectRatio);
+
+            // Set the pixmap to the label
+            label->setPixmap(pixmap);
+
+            // Add the label to the layout
+            deadPiecesLayout->addWidget(label);
+        }
+    }
+
+    void Chess_project::clearDeadPiecesLayout(QLayout* layout) {
+        // Delete all items from the layout
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+    }
+
+    void Chess_project::clearAllDeadPiecesLayouts() {
+        // Clear the layout for dead white pieces
+        clearDeadPiecesLayout(ui->vBoxDeadWhite);
+
+        // Clear the layout for dead black pieces
+        clearDeadPiecesLayout(ui->vBoxDeadBlack);
+
+        game.getBoard()->clearDeadWhitePieces();
+        game.getBoard()->clearDeadBlackPieces();
+    }
+
+    void Chess_project::showCheckMate() {
+        game.getBoard()->cleanBackendBoard();
+        clearBoard();
+        QMessageBox::critical(this, "JEE JEE", QString("You Won"));
+        clearAllDeadPiecesLayouts();
+    }
+
     void Chess_project::switchPlayerTurn() {
         if (game.getCurrentPlayer() == Color::BLACK) {
             game.setCurrentPlayer(Color::WHITE);
@@ -240,7 +308,7 @@ namespace vue {
 
     bool Chess_project::isCheckMate(pair<int,int> kingPos) {
         qDebug() << "posRoiVerifCheckmate : " << kingPos;
-        if (kingPos.first == -1 && kingPos.second == -1)//si le king existe pas on continue
+        if (kingPos.first == -1 && kingPos.second == -1)//If the king exists we continue (checks the case if there is only one king)
             return false;
 
         vector<pair<int, int>> directions = { make_pair(1,1), make_pair(-1,1), make_pair(1,-1), make_pair(-1,-1), make_pair(0,1), make_pair(1,0), make_pair(0,-1), make_pair(-1,0) };
@@ -249,16 +317,16 @@ namespace vue {
         for (const auto& direction : directions) {
             pair<int, int> futurPos = make_pair(kingPos.first + direction.first, kingPos.second + direction.second);
             if (game.isPositionInBoard(futurPos)) {
-                if (game.getBoard().isOccupied(futurPos)) {
-                    if (game.getBoard().getPieceAtPos(futurPos)->getColor() != game.getBoard().getPieceAtPos(kingPos)->getColor()) {
-                        if (!game.isKingCheck(futurPos, game.getBoard().getPieceAtPos(kingPos)->getColor()))//king not in check
+                if (game.getBoard()->isOccupied(futurPos)) {
+                    if (game.getBoard()->getPieceAtPos(futurPos)->getColor() != game.getBoard()->getPieceAtPos(kingPos)->getColor()) {
+                        if (!game.isKingCheck(futurPos, game.getBoard()->getPieceAtPos(kingPos)->getColor()))//king not in check
                             moveSetValid.push_back(futurPos);
                         else
                             canBeCheckmate = true;
                     }
                 }
                 else {
-                        if (!game.isKingCheck(futurPos, game.getBoard().getPieceAtPos(kingPos)->getColor()))//king not in check
+                        if (!game.isKingCheck(futurPos, game.getBoard()->getPieceAtPos(kingPos)->getColor()))//king not in check
                             moveSetValid.push_back(futurPos);
                         else
                             canBeCheckmate = true;
@@ -296,8 +364,8 @@ namespace vue {
         for (int col = 0; col < 8; col++) {
             for (int row = 0; row < 8; row++) {
                 pair<int, int> position = make_pair(row, col);
-                if (game.getBoard().isOccupied(position) == true) {
-                    shared_ptr<Piece> piece = game.getBoard().getPieceAtPos(position);
+                if (game.getBoard()->isOccupied(position) == true) {
+                    shared_ptr<Piece> piece = game.getBoard()->getPieceAtPos(position);
                     QPushButton* button = gridButtons[row][col];
                     putIcon(button, findImage(piece));
                 }

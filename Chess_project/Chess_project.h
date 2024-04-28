@@ -98,6 +98,13 @@ namespace vue {
 
         pair<int, int> findPosition(QPushButton* clickedButton);
 
+        void showCheckMate();
+
+        void displayDeadPieces(Color color);
+
+        void clearDeadPiecesLayout(QLayout* layout);
+
+        void clearAllDeadPiecesLayouts();
 
     private:
         Ui::Chess_projectClass* ui;

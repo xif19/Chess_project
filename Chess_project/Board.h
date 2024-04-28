@@ -58,6 +58,18 @@ namespace modele {
 			return posBlackKing_;
 		}
 
+		const vector<std::shared_ptr<Piece>>& getDeadWhitePieces() const {
+			return vectDeadWhitePieces;
+		}
+
+		const vector<std::shared_ptr<Piece>>& getDeadBlackPieces() const {
+			return vectDeadBlackPieces;
+		}
+
+		Color getTakenPieceColor() {
+			return takenPieceColor;
+		}
+
 		//setters
 		void setWhiteKing(pair<int, int> whiteKingPos) {
 			posWhiteKing_ = whiteKingPos;
@@ -67,14 +79,23 @@ namespace modele {
 			posBlackKing_ = blackKingPos;
 		}
 
-		
+		void clearDeadWhitePieces() {
+			vectDeadWhitePieces.clear();
+		}
+
+		void clearDeadBlackPieces() {
+			vectDeadBlackPieces.clear();
+		}
 
 	private:
 		static const int NB_LINES = 8;
 		static const int NB_COLUMNS = 8;
-	
+
+		vector<shared_ptr<Piece>> vectDeadWhitePieces;
+		vector<shared_ptr<Piece>> vectDeadBlackPieces;
 		pair<int, int> posWhiteKing_;
 		pair<int, int> posBlackKing_;
+		Color takenPieceColor;
 		shared_ptr<Box> arrBoard[NB_LINES][NB_COLUMNS];
 		int kingCount_ = 0; // Counter for king pieces
 	};

@@ -6,13 +6,13 @@ namespace modele {
 
 	public:
 		Game() {
-			Board board_ = Board();
+			board_ = make_shared<Board>();
 			currentPlayer_ = Color::WHITE;
 		}
 
 		bool isPiecePlayer(pair<int, int> pos, Color playerColor) {
-			if (board_.isOccupied(pos)) {
-				return board_.getPieceAtPos(pos)->getColor() == playerColor;
+			if (board_->isOccupied(pos)) {
+				return board_->getPieceAtPos(pos)->getColor() == playerColor;
 			}
 		}
 
@@ -44,8 +44,8 @@ namespace modele {
 			for (int i = 0; i < BOARD_MAX_SIZE; i++) {
 				for (int j = 0; j < BOARD_MAX_SIZE; j++) {
 					pair<int, int> box = make_pair(i, j);
-					if (board_.isOccupied(box)) {
-						shared_ptr<Piece> piece = board_.getPieceAtPos(box);
+					if (board_->isOccupied(box)) {
+						shared_ptr<Piece> piece = board_->getPieceAtPos(box);
 						if (piece && piece->getColor() != color) { // Vérification du pointeur non nul
 							vector<pair<int, int>> possibleMoves;
 							if(piece->getType() == Type::KING)
@@ -64,7 +64,7 @@ namespace modele {
 		}
 		//TODO: add all the movements for each piece, return all the movements in a vector<pair<int, int>> -> (vector of positions)
 		vector<pair<int, int>> getMoveValidPiece(pair<int, int> pos) {
-			switch (board_.getPieceAtPos(pos)->getType()) {
+			switch (board_->getPieceAtPos(pos)->getType()) {
 			case Type::KING:
 				return getMoveValidKing(pos,true); break;
 			case Type::QUEEN:
@@ -86,10 +86,10 @@ namespace modele {
 			for (const auto& direction : directions) {
 				pair<int, int> futurPos = make_pair(pos.first+ direction.first,pos.second + direction.second);
 				if (isPositionInBoard(futurPos)) {
-					if (board_.isOccupied(futurPos)) {
-						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor()) {
+					if (board_->isOccupied(futurPos)) {
+						if (board_->getPieceAtPos(futurPos)->getColor() != board_->getPieceAtPos(pos)->getColor()) {
 							if (withCheck) {
-								if (!isKingCheck(futurPos, board_.getPieceAtPos(pos)->getColor()))//king not in check
+								if (!isKingCheck(futurPos, board_->getPieceAtPos(pos)->getColor()))//king not in check
 									moveSetValid.push_back(futurPos);
 							}
 							else
@@ -98,7 +98,7 @@ namespace modele {
 					}
 					else {
 						if(withCheck){
-							if (!isKingCheck(futurPos, board_.getPieceAtPos(pos)->getColor()))//king not in check
+							if (!isKingCheck(futurPos, board_->getPieceAtPos(pos)->getColor()))//king not in check
 								moveSetValid.push_back(futurPos);
 						}
 						else
@@ -123,8 +123,8 @@ namespace modele {
 						flag = false;
 						continue;
 					}
-					if (board_.isOccupied(futurPos)) {
-						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+					if (board_->isOccupied(futurPos)) {
+						if (board_->getPieceAtPos(futurPos)->getColor() != board_->getPieceAtPos(pos)->getColor())
 							moveSetValid.push_back(futurPos);
 						flag = false;
 					}
@@ -138,7 +138,7 @@ namespace modele {
 
 		vector<pair<int, int>> getMoveValidPawn(pair<int, int> pos) {
 			vector<pair<int, int>> directions;
-			if(board_.getPieceAtPos(pos)->getColor() == Color::BLACK)
+			if(board_->getPieceAtPos(pos)->getColor() == Color::BLACK)
 				directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0) };//Black
 			else
 				directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0) };//White
@@ -147,11 +147,11 @@ namespace modele {
 				pair<int, int> futurPos = make_pair( pos.first + direction.first, pos.second + direction.second);
 				if (isPositionInBoard(futurPos)){
 					if (direction.second == 0) {//aller devant
-						if(!board_.isOccupied(futurPos))
+						if(!board_->isOccupied(futurPos))
 							moveSetValid.push_back(futurPos);
 					}
-					else if(board_.isOccupied(futurPos)&& //diagonal
-						board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+					else if(board_->isOccupied(futurPos)&& //diagonal
+						board_->getPieceAtPos(futurPos)->getColor() != board_->getPieceAtPos(pos)->getColor())
 						moveSetValid.push_back(futurPos);
 				}
 			}
@@ -170,8 +170,8 @@ namespace modele {
 						flag = false;
 						continue;
 					}
-					if (board_.isOccupied(futurPos)) {
-						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+					if (board_->isOccupied(futurPos)) {
+						if (board_->getPieceAtPos(futurPos)->getColor() != board_->getPieceAtPos(pos)->getColor())
 							moveSetValid.push_back(futurPos);
 						flag = false;
 					}
@@ -196,8 +196,8 @@ namespace modele {
 			vector<pair<int, int>> moveSetValid;
 			for (const auto& position : moveSet) {
 				if (isPositionInBoard(position)) {
-					if (board_.isOccupied(position)) {
-						if (board_.getPieceAtPos(position)->getColor() != board_.getPieceAtPos(pos)->getColor())//si on verifie pour une piece mais qu'on est pas sur que la position existe, on va avoir une erreur donc on doit separer
+					if (board_->isOccupied(position)) {
+						if (board_->getPieceAtPos(position)->getColor() != board_->getPieceAtPos(pos)->getColor())//si on verifie pour une piece mais qu'on est pas sur que la position existe, on va avoir une erreur donc on doit separer
 							moveSetValid.push_back(position);
 					}
 					else
@@ -219,8 +219,8 @@ namespace modele {
 						flag = false;
 						continue;
 					}
-					if (board_.isOccupied(futurPos)) {
-						if (board_.getPieceAtPos(futurPos)->getColor() != board_.getPieceAtPos(pos)->getColor())
+					if (board_->isOccupied(futurPos)) {
+						if (board_->getPieceAtPos(futurPos)->getColor() != board_->getPieceAtPos(pos)->getColor())
 							moveSetValid.push_back(futurPos);
 						flag = false;
 					}
@@ -232,7 +232,7 @@ namespace modele {
 			return moveSetValid;
 		}
 		//Getters
-		Board getBoard() {
+		shared_ptr<Board> getBoard() {
 			return board_;
 		}
 
@@ -246,7 +246,7 @@ namespace modele {
 		}
 
 	private:
-		Board board_;
+		shared_ptr<Board> board_;
 		Color currentPlayer_;
 		int BOARD_MAX_SIZE = 8;
 	};
