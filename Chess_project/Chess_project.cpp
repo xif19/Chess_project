@@ -61,6 +61,7 @@ namespace vue {
         
     }
     
+    
     void Chess_project::initBoard(QGridLayout* gridLayout) {
 
 
@@ -68,18 +69,18 @@ namespace vue {
         gridLayout->setContentsMargins(0, 0, 0, 0);
 
         //Preloading images in the vector 
-        pieceImages.append(QPixmap("Images/King_W.png")); //0
-        pieceImages.append(QPixmap("Images/King_B.png")); //1
-        pieceImages.append(QPixmap("Images/Queen_W.png")); //2
-        pieceImages.append(QPixmap("Images/Queen_B.png")); //3 
-        pieceImages.append(QPixmap("Images/Rook_W.png")); //4 
-        pieceImages.append(QPixmap("Images/Rook_B.png")); // 5
-        pieceImages.append(QPixmap("Images/Knight_W.png")); //6 
-        pieceImages.append(QPixmap("Images/Knight_B.png")); //7
-        pieceImages.append(QPixmap("Images/Pawn_W.png")); //8
-        pieceImages.append(QPixmap("Images/Pawn_B.png")); //9
-        pieceImages.append(QPixmap("Images/Bishop_W.png")); //10
-        pieceImages.append(QPixmap("Images/Bishop_B.png")); // 11
+        pieceImages.append(QPixmap("Images/King_B.png")); //0
+        pieceImages.append(QPixmap("Images/King_W.png")); //1
+        pieceImages.append(QPixmap("Images/Queen_B.png")); //2
+        pieceImages.append(QPixmap("Images/Queen_W.png")); //3 
+        pieceImages.append(QPixmap("Images/Rook_B.png")); //4 
+        pieceImages.append(QPixmap("Images/Rook_W.png")); // 5
+        pieceImages.append(QPixmap("Images/Knight_B.png")); //6 
+        pieceImages.append(QPixmap("Images/Knight_W.png")); //7
+        pieceImages.append(QPixmap("Images/Pawn_B.png")); //8
+        pieceImages.append(QPixmap("Images/Pawn_W.png")); //9
+        pieceImages.append(QPixmap("Images/Bishop_B.png")); //10
+        pieceImages.append(QPixmap("Images/Bishop_W.png")); // 11
 
 
         //Creates the chessboard and connects every button to the handleSquareClick method
@@ -302,7 +303,7 @@ namespace vue {
     void Chess_project::showCheckMate() {
         game.getBoard()->cleanBackendBoard();
         clearBoard();
-        QMessageBox::critical(this, "JEE JEE", QString("You Won"));
+        QMessageBox::critical(this, "YOU WON", QString("You Won"));
         clearAllDeadPiecesLayouts();
     }
 
@@ -413,23 +414,12 @@ namespace vue {
     }
 
 
-    bool Chess_project::findColor(shared_ptr<Piece> piece) {
-        if (piece->getColor() == Color::BLACK) {
-            return 0;
-        }
-        else {
-            return 1;
-        }
-    }
-
-
     enumImages Chess_project::findImage(shared_ptr<Piece> piece) {
         //Type King, Queen, Rook, Knight, Pawn, Bishop
-        bool color = findColor(piece);
         switch (piece->getType()) {
             // 0 = black, 1 = white
             case Type::KING:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::KING_B;
                 }
                 else {
@@ -437,7 +427,7 @@ namespace vue {
                 }
                 break;
             case Type::QUEEN:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::QUEEN_B;
                 }
                 else {
@@ -445,7 +435,7 @@ namespace vue {
                 }
                 break;
             case Type::ROOK:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::ROOK_B;
                 }
                 else {
@@ -453,7 +443,7 @@ namespace vue {
                 }
                 break;
             case Type::KNIGHT:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::KNIGHT_B;
                 }
                 else {
@@ -461,7 +451,7 @@ namespace vue {
                 }
                 break;
             case Type::PAWN:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::PAWN_B;
                 }
                 else {
@@ -469,7 +459,7 @@ namespace vue {
                 }
                 break;
             case Type::BISHOP:
-                if (color) {
+                if (piece->getColor() == Color::BLACK) {
                     return enumImages::BISHOP_B;
                 }
                 else {

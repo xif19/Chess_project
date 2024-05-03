@@ -84,6 +84,9 @@ namespace vue {
         */
         enumImages findImage(shared_ptr<Piece> piece);
 
+        /**
+        * 
+        */
         void clearBoard();
 
         void load3KingsImages();
