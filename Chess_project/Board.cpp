@@ -115,7 +115,7 @@ namespace modele {
 	//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
 	void Board::initBoard0() {
 		map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::ROOK),make_pair(4,3)},
-			{make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(4,5)}
+			{make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(3,1)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(5,5)}
 		};
 		setBlackKing(make_pair(-1, -1));
 		setWhiteKing(make_pair(-1,-1));
@@ -138,6 +138,35 @@ namespace modele {
 			{make_shared<Piece>(Color::WHITE, Type::QUEEN), make_pair(5,6)}, { make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(0,5)},
 			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(0,3)}, {make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(7,7)},
 			{make_shared<Piece>(Color::WHITE, Type::KNIGHT), make_pair(6,7)}
+		};
+		setBlackKing(make_pair(-1, -1));
+		setWhiteKing(make_pair(-1, -1));
+		for (auto const& [piece, pos] : board0) {
+			addPiece(piece, pos);
+		}
+	}
+
+	void Board::initBoard3() {
+		map<shared_ptr<Piece>, pair<int, int>> board0 = { 
+			//White pieces
+			{ make_shared<Piece>(Color::WHITE, Type::ROOK),make_pair(0,0)},{ make_shared<Piece>(Color::WHITE, Type::KNIGHT),make_pair(0,1)},
+			{make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(0,2)}, { make_shared<Piece>(Color::WHITE, Type::QUEEN), make_pair(0,3)},
+			{make_shared<Piece>(Color::WHITE, Type::KING), make_pair(0,4)}, {make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(0,5)},
+			{make_shared<Piece>(Color::WHITE, Type::KNIGHT), make_pair(0,6)}, {make_shared<Piece>(Color::WHITE, Type::ROOK), make_pair(0,7)},
+			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,0)}, {make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,1)}, 
+			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,2)}, {make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,3)}, 
+			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,4)}, {make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,5)}, 
+			{make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,6)}, {make_shared<Piece>(Color::WHITE, Type::PAWN), make_pair(1,7)}, 
+
+			//Black pieces
+			{ make_shared<Piece>(Color::BLACK, Type::ROOK),make_pair(7,0)},{ make_shared<Piece>(Color::BLACK, Type::KNIGHT),make_pair(7,1)},
+			{make_shared<Piece>(Color::BLACK, Type::BISHOP), make_pair(7,2)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(7,3)},
+			{make_shared<Piece>(Color::BLACK, Type::QUEEN), make_pair(7,4)}, {make_shared<Piece>(Color::BLACK, Type::BISHOP), make_pair(7,5)},
+			{make_shared<Piece>(Color::BLACK, Type::KNIGHT), make_pair(7,6)}, {make_shared<Piece>(Color::BLACK, Type::ROOK), make_pair(7,7)},
+			{make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,0)}, {make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,1)},
+			{make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,2)}, {make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,3)},
+			{make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,4)}, {make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,5)},
+			{make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,6)}, {make_shared<Piece>(Color::BLACK, Type::PAWN), make_pair(6,7)}
 		};
 		setBlackKing(make_pair(-1, -1));
 		setWhiteKing(make_pair(-1, -1));

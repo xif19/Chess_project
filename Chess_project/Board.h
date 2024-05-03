@@ -43,6 +43,8 @@ namespace modele {
 
 		void initBoard2();
 
+		void initBoard3();
+
 		void cleanBackendBoard();
 
 		void setPosKing(pair<int, int> actualPos, pair<int, int> newPos);

@@ -39,6 +39,8 @@ namespace vue {
         ui->listWidget->addItem(item2);
         QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
         ui->listWidget->addItem(item3);
+        QListWidgetItem* item4 = new QListWidgetItem(QIcon("Images/Pawn_W"), "Magnus Carlsen 1v1");
+        ui->listWidget->addItem(item4);
         
         ui->vBoxDeadWhite->parentWidget()->setStyleSheet("background-color: gray");
         ui->vBoxDeadBlack->parentWidget()->setStyleSheet("background-color: gray");
@@ -155,6 +157,14 @@ namespace vue {
                 clearBoard();
                 clearAllDeadPiecesLayouts();
                 game.getBoard()->initBoard2();
+                loadPiecesOnBoard();
+            }
+
+            if (ui->listWidget->currentItem()->text() == "Magnus Carlsen 1v1") {
+                game.getBoard()->cleanBackendBoard();
+                clearBoard();
+                clearAllDeadPiecesLayouts();
+                game.getBoard()->initBoard3();
                 loadPiecesOnBoard();
             }
         }
