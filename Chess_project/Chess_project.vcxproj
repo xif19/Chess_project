@@ -64,6 +64,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)\googletest\include;$(SolutionDir)\googletest;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -93,6 +98,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Test.cpp" />
     <QtRcc Include="Chess_project.qrc" />
     <QtUic Include="Chess_project.ui" />
     <QtMoc Include="Chess_project.h" />

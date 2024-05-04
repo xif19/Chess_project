@@ -52,11 +52,12 @@ namespace modele {
 		pair<int, int> getPosKing(Color playerTurn);
 
 		//getters
-		pair<int, int> getWhiteKing() {
+
+		pair<int, int> getWhiteKing() const {
 			return posWhiteKing_;
 		}
 
-		pair<int, int> getBlackKing() {
+		pair<int, int> getBlackKing() const {
 			return posBlackKing_;
 		}
 
@@ -68,7 +69,7 @@ namespace modele {
 			return vectDeadBlackPieces;
 		}
 
-		Color getTakenPieceColor() {
+		Color getTakenPieceColor() const {
 			return takenPieceColor;
 		}
 
@@ -81,10 +82,23 @@ namespace modele {
 			posBlackKing_ = blackKingPos;
 		}
 
+		/**
+	   * Clears the vector of taken white pieces and frees up the memory
+	   *
+	   * @param piece: void
+	   *
+	   * @return bool: void
+	   */
 		void clearDeadWhitePieces() {
 			vectDeadWhitePieces.clear();
 		}
-
+		/**
+	   * Clears the vector of taken black pieces and frees up the memory
+	   *
+	   * @param piece: void
+	   *
+	   * @return bool: void
+	   */
 		void clearDeadBlackPieces() {
 			vectDeadBlackPieces.clear();
 		}

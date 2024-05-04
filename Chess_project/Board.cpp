@@ -47,23 +47,13 @@ namespace modele {
 	}
 
 	bool Board::isOccupied(pair<int, int> pos) {
-		if (arrBoard[pos.first][pos.second]->getPiece() == nullptr) {
-			return false;
-		}
-		else {
-			return true;
-		}
-
+		return !(arrBoard[pos.first][pos.second]->getPiece() == nullptr);
 	}
 
 	void Board::movePiece(pair<int, int> posBeginning, pair<int, int> posEnding) {
 		if (isOccupied(posBeginning)) {
-			if (getPieceAtPos(posBeginning)->getType() == Type::KING)
-			{
-				qDebug() << "posBeginning : " << posBeginning << " posEnding : " << posEnding;
-				qDebug() << "posRoiBlancAvantMove : " << getWhiteKing() << " posRoiNoirAvantMove : " << getBlackKing();
+			if (getPieceAtPos(posBeginning)->getType() == Type::KING){
 				setPosKing(posBeginning, posEnding);
-				qDebug() << "posRoiBlancApresMove : " << getWhiteKing() << " posRoiNoirApresMove : " << getBlackKing();
 			}
 			if (isOccupied(posEnding))
 				takePiece(posEnding);

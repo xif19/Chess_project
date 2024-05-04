@@ -1,4 +1,3 @@
-
 /**
 * Cette classe gere le comportement de la partie, l'initialisation du jeu et de ses composants ainsi que la gestions du lien entre le front end et le back end.
 * \file   Chess_project.h
@@ -229,6 +228,9 @@ namespace vue {
             if (game.getBoard()->isOccupied(pos)) {
                 currentPiece = game.getBoard()->getPieceAtPos(pos);
                 if (currentPiece->getColor() == game.getCurrentPlayer()) {
+                    if (currentPiece->getType() != Type::KING && game.isKingCheck(game.getBoard()->getPosKing(game.getCurrentPlayer()), game.getCurrentPlayer())) {
+                        return;
+                    }
                     QPushButton* ownButton = gridButtons[pos.first][pos.second];
                     ownButton->setStyleSheet("background-color: green");
 
