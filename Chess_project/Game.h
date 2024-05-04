@@ -10,6 +10,7 @@ namespace modele {
 			currentPlayer_ = Color::WHITE;
 		}
 
+
 		bool isPiecePlayer(pair<int, int> pos, Color playerColor);
 
 		bool isPositionInBoard(pair<int, int> pos);

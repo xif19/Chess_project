@@ -17,34 +17,112 @@ namespace modele {
 		}
 		~Board() {};
 
-		/**
-		* Creates a new board of shared pointers of Box objects
-		*/
-		void createBoard();
 
+		/**
+	   * Creates a 2d array representing the board
+	   *
+	   * @param piece: void
+	   *
+	   * @return bool: void
+	   */
+		void createBoard();
+ 
+		/**
+	   * Add a new piece on the board with the specified position, type and color
+	   *
+	   * @param piece: shared_ptr<Piece> 
+	   * @param pos: pair<int, int>
+	   *
+	   * @return void:
+	   */
 		void addPiece(shared_ptr<Piece> piece, pair<int, int> pos);
 
+		/**
+	   * Removes an existing piece on the board with the specified position, type and color
+	   *
+	   * @param piece: shared_ptr<Piece>
+	   * @param pos: pair<int, int>
+	   *
+	   * @return void:
+	   */
 		void removePiece(shared_ptr<Piece> piece, pair<int, int> pos);
 
+
+		/**
+	   * Returns true if a piece exists at this position
+	   *
+	   * @param pos: pair<int, int>
+	   *
+	   * @return bool:
+	   */
 		bool isOccupied(pair<int, int> pos);
 
+		/**
+	   * Moves a piece from its orignal position to a new position and takes the opponent's piece if necessary
+	   *
+	   * @param posBeginning: pair<int, int>
+	   * @param posEnding: pair<int, int>
+	   *
+	   * @return void:
+	   */
 		void movePiece(pair<int, int> posBeginning, pair<int, int> posEnding);
 
+		/**
+	   * Takes the opponent's piece and adds it to the array of taken pieces
+	   *
+	   * @param pos: pair<int, int>
+	   *
+	   * @return void:
+	   */
 		void takePiece(pair<int, int> piecePos);
 
 		shared_ptr<Piece> getPieceAtPos(pair<int, int> pos);
 
-		// pair<row, col>
-		//{Rook_B 0,0}, {Rook_B 3,1}, {King_W 4,5}
+		/**
+	   * initialize a game state with 1 black king and 2 white rooks
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		void initBoard0();
 
-		//3 kings
+		
+		/**
+	   * initialize a game state with 3 kings
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		void initBoard1();
 
+		/**
+	   * initialize an endgame scenario with the white queen along with few other pieces
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		void initBoard2();
 
+		/**
+	   * initialize a default starting chess game state
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		void initBoard3();
 
+
+		/**
+	   * Resets the 2d array of pieces
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		void cleanBackendBoard();
 
 		void setPosKing(pair<int, int> actualPos, pair<int, int> newPos);

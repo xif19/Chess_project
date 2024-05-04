@@ -14,9 +14,16 @@ namespace modele {
 
 		//Getters
 		shared_ptr<Piece> getPiece() const;
-
+		//Setters
 		void setPiece(shared_ptr<Piece> piece);
 
+		/**
+	   * Returns true if the case is occupied by a piece
+	   *
+	   * @param void:
+	   *
+	   * @return void:
+	   */
 		bool isOccupied() const;
 
 

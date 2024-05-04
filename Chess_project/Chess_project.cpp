@@ -2,7 +2,7 @@
 * Cette classe gere le comportement de la partie, l'initialisation du jeu et de ses composants ainsi que la gestions du lien entre le front end et le back end.
 * \file   Chess_project.h
 * \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date  21 avril 2024
+* \date  3 mai 2024
 * Créé le 1er avril 2024
 */
 
