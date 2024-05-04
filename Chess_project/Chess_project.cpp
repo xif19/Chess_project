@@ -310,11 +310,11 @@ namespace vue {
     void Chess_project::switchPlayerTurn() {
         if (game.getCurrentPlayer() == Color::BLACK) {
             game.setCurrentPlayer(Color::WHITE);
-            turnLabel("Tour du joueur Blanc");
+            turnLabel("WHITE'S TURN");
         }
         else {
             game.setCurrentPlayer(Color::BLACK);
-            turnLabel("Tour du joueur Noir");
+            turnLabel("BLACK'S TURN");
         }
     }
 
@@ -383,6 +383,10 @@ namespace vue {
                 }
             }
         }
+    }
+
+    bool Chess_project::findColor(shared_ptr<Piece> piece) {
+        return piece->getColor() == Color::WHITE;
     }
 
     void Chess_project::load3KingsImages() {
