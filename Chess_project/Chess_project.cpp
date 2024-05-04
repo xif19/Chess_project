@@ -195,20 +195,13 @@ namespace vue {
                     QPushButton* newButton = gridButtons[pos.first][pos.second];
                     putIcon(newButton, findImage(currentPiece));
 
-                    
-                    qDebug() << "piece moved";
                     switchPlayerTurn();
                     pair<int,int> pos = game.getBoard()->getPosKing(game.getCurrentPlayer());
-                    if (game.getCurrentPlayer() == Color::BLACK)
-                        qDebug() << "livePlayer NOIR";
-                    if (game.getCurrentPlayer() == Color::WHITE)
-                        qDebug() << "livePlayer BLANC";
-                    qDebug() << pos;
-
                     if (isCheckMate(game.getBoard()->getPosKing(game.getCurrentPlayer()))) {
                         showCheckMate();
                     }
 
+                    //Adds the dead piece to the good vector
                     displayDeadPieces(game.getBoard()->getTakenPieceColor());
                 }
             }
@@ -305,7 +298,7 @@ namespace vue {
     void Chess_project::showCheckMate() {
         game.getBoard()->cleanBackendBoard();
         clearBoard();
-        QMessageBox::critical(this, "YOU WON", QString("You Won"));
+        QMessageBox::critical(this, "YOU WON", QString("CHECKMATE"));
         clearAllDeadPiecesLayouts();
     }
 

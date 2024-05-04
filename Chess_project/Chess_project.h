@@ -85,28 +85,109 @@ namespace vue {
         enumImages findImage(shared_ptr<Piece> piece);
 
         /**
-        * 
+        * Clears the frontend board by setting all the icons to null 
+        *
+        * @param void
+        *
+        * @return void
         */
         void clearBoard();
 
+        /**
+        * It's to load the pieces of the thrown error. It's mostly because the error 
+        * of 3 kings is activated in the backend and that makes it so the frontend is 
+        * never loaded. This function is just to show the board that has an error 
+        * quickly. 
+        *
+        * @param void
+        *
+        * @return void
+        */
         void load3KingsImages();
 
+        /**
+        * Resets the colors of the squares. 
+        *
+        * @param void
+        *
+        * @return void
+        */
         void clearColor();
 
+        /**
+        * This function manages all the movement of the pieces depending on their
+        * moves. It lets the user click on the pieces and show the good movements.
+        *
+        * @param pos: The position of a piece
+        *
+        * @return void
+        */
         void interactWithPiece(pair<int, int> pos);
 
+        /**
+        * After a movement has been done, it switched the turns. 
+        *
+        * @param void
+        *
+        * @return void
+        */
         void switchPlayerTurn();
 
+        /**
+        * It checks if the king is checkmate and if he is, the game
+        * ends. 
+        *
+        * @param kingPos : The position of the king
+        *
+        * @return bool
+        */
         bool isCheckMate(pair<int, int> kingPos);
 
+        /**
+        * It checks if the king is checkmate and if he is, the game
+        * ends.
+        *
+        * @param kingPos : The position of the king
+        *
+        * @return bool
+        */
         pair<int, int> findPosition(QPushButton* clickedButton);
 
+        /**
+        * It clears the board and shows a critical message to end the game
+        *
+        * @param void
+        *
+        * @return void
+        */
         void showCheckMate();
 
+        /**
+        * It updates the two vertical layouts whenever a new piece dies. 
+        *
+        * @param color : The color of the vertical layout to refresh
+        *
+        * @return void
+        */
         void displayDeadPieces(Color color);
 
+        /**
+        * It clears the specified layout of dead pieces
+        *
+        * @param layout 
+        *
+        * @return void
+        */
         void clearDeadPiecesLayout(QLayout* layout);
 
+        /**
+        * It clears all the frontend layouts of dead pieces after a game is
+        * finished. 
+        *
+        * @param layout
+        *
+        * @return void
+        */
         void clearAllDeadPiecesLayouts();
 
     private:
@@ -146,6 +227,13 @@ namespace vue {
         */
         void on_acceptMenuButton_clicked();
 
+        /**
+        * Changes the text of the turn.
+        *
+        * @param text 
+        *
+        * @return nothing
+        */
         void turnLabel(const QString text);
 
     };
