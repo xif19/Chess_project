@@ -32,16 +32,6 @@ namespace vue {
         * @return nothing
         */
         void initBoard(QGridLayout* gridLayout);
-
-        /**
-        * Handles the times when the mouse is pressed on the screen. 
-        * It doesnt handle when the mouse presses buttons or other widgets. 
-        *
-        * @param event : Clicking on the screen event
-        * 
-        * @return nothing
-        */
-        void mousePressEvent(QMouseEvent* event);
         
         /**
         * Handles the times when the mouse is pressed on the screen.

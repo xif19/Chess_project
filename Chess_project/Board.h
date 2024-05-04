@@ -78,6 +78,8 @@ namespace modele {
 
 		shared_ptr<Piece> getPieceAtPos(pair<int, int> pos);
 
+		pair<int, int> findKing(Color playerColor);
+
 		/**
 	   * initialize a game state with 1 black king and 2 white rooks
 	   *

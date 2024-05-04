@@ -1,11 +1,3 @@
-/**
-* Cette classe gere le contenu du board, soit le tableau en deux dimension contenant des Box. Elle gere aussi le fait de bouger les pieces.
-* \file   Board.h
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date 3 mai 2024
-* Créé le 1er avril 2024
-*/
-
 #include "Board.h"
 
 namespace modele {
@@ -92,6 +84,18 @@ namespace modele {
 			else if (piece->getColor() == Color::WHITE)
 				setWhiteKing(newPos);
 		}
+	}
+
+	pair<int, int> Board::findKing(Color playerColor) {
+		for (int i = 0; i < NB_LINES; ++i) {
+			for (int j = 0; j < NB_COLUMNS; ++j) {
+				if (isOccupied(make_pair(i, j))) {
+					if (getPieceAtPos(make_pair(i, j))->getType() == Type::KING && getPieceAtPos(make_pair(i, j))->getColor() == playerColor)
+						return make_pair(i, j);
+				}
+			}
+		}
+		return make_pair(-1, -1); //A position that doesn't exist 
 	}
 
 	pair<int,int> Board::getPosKing(Color playerTurn) {

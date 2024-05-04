@@ -1,11 +1,3 @@
-/**
-* Cette classe gere le comportement de la partie, l'initialisation du jeu et de ses composants ainsi que la gestions du lien entre le front end et le back end.
-* \file   Chess_project.h
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date  3 mai 2024
-* Créé le 1er avril 2024
-*/
-
 #include "Chess_project.h"
 #include <iostream>
 #include <iomanip>
@@ -100,18 +92,7 @@ namespace vue {
 
     }
 
-    void Chess_project::mousePressEvent(QMouseEvent* event) {
-        qDebug() << event->pos();
-    }
 
-    /**
-    * Everytime a square (button) on the grid layout is clicked, this
-    *   function is called.
-    *
-    * @param nothing
-    *
-    * @return nothing
-    */
     void Chess_project::handleSquareClick()
     {   
         clearColor();
@@ -195,18 +176,17 @@ namespace vue {
                     QPushButton* newButton = gridButtons[pos.first][pos.second];
                     putIcon(newButton, findImage(currentPiece));
 
+
+                    qDebug() << "piece moved";
                     switchPlayerTurn();
-                    pair<int,int> pos = game.getBoard()->getPosKing(game.getCurrentPlayer());
+                    pair<int, int> pos = game.getBoard()->getPosKing(game.getCurrentPlayer());
+
                     if (isCheckMate(game.getBoard()->getPosKing(game.getCurrentPlayer()))) {
                         showCheckMate();
                     }
 
-                    //Adds the dead piece to the good vector
                     displayDeadPieces(game.getBoard()->getTakenPieceColor());
                 }
-            }
-            else {
-                qDebug() << "Nope bad move";
             }
 
             // Reset 
@@ -221,9 +201,14 @@ namespace vue {
             if (game.getBoard()->isOccupied(pos)) {
                 currentPiece = game.getBoard()->getPieceAtPos(pos);
                 if (currentPiece->getColor() == game.getCurrentPlayer()) {
-                    if (currentPiece->getType() != Type::KING && game.isKingCheck(game.getBoard()->getPosKing(game.getCurrentPlayer()), game.getCurrentPlayer())) {
+                    //This checks if the king is in check so the user can't move another piece other than the king.
+                    if (currentPiece->getType() != Type::KING && game.isKingCheck(game.getBoard()->findKing(game.getCurrentPlayer()), game.getCurrentPlayer())) {
+                        pair<int, int> posKing = game.getBoard()->findKing(game.getCurrentPlayer());
+                        QPushButton* ownButton = gridButtons[posKing.first][posKing.second];
+                        ownButton->setStyleSheet("background-color: red");
                         return;
                     }
+
                     QPushButton* ownButton = gridButtons[pos.first][pos.second];
                     ownButton->setStyleSheet("background-color: green");
 
@@ -416,7 +401,6 @@ namespace vue {
     enumImages Chess_project::findImage(shared_ptr<Piece> piece) {
         //Type King, Queen, Rook, Knight, Pawn, Bishop
         switch (piece->getType()) {
-            // 0 = black, 1 = white
             case Type::KING:
                 if (piece->getColor() == Color::BLACK) {
                     return enumImages::KING_B;

@@ -1,5 +1,5 @@
 /**
-*  Ce programme permet de simuler le fameux jeux d'echec selon plusieurs mises en situations differentes. 
+*  This program is a chess game made using C++ and Qt. 
 * \file   td6.cpp
 * \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
 * \date   3 mai 2024

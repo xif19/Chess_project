@@ -1,11 +1,3 @@
-/**
-* Cette classe gere les algorithmes propres au comportement d'un jeu d'echec. On parle ici des algorithmes de mouvements des pieces ou autre.
-* \file   Game.h
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date  3 mai 2024
-* Créé le 1er avril 2024
-*/
-
 #include "Game.h"
 
 
@@ -28,7 +20,7 @@ namespace modele{
 				pair<int, int> box = make_pair(i, j);
 				if (board_->isOccupied(box)) {
 					shared_ptr<Piece> piece = board_->getPieceAtPos(box);
-					if (piece && piece->getColor() != color) { // Vérification du pointeur non nul
+					if (piece && piece->getColor() != color) { // Verification of the non null pointer
 						vector<pair<int, int>> possibleMoves;
 						if (piece->getType() == Type::KING)
 							possibleMoves = getMoveValidKing(box, false);
@@ -177,7 +169,7 @@ namespace modele{
 		for (const auto& position : moveSet) {
 			if (isPositionInBoard(position)) {
 				if (board_->isOccupied(position)) {
-					if (board_->getPieceAtPos(position)->getColor() != board_->getPieceAtPos(pos)->getColor())//si on verifie pour une piece mais qu'on est pas sur que la position existe, on va avoir une erreur donc on doit separer
+					if (board_->getPieceAtPos(position)->getColor() != board_->getPieceAtPos(pos)->getColor())
 						moveSetValid.push_back(position);
 				}
 				else
