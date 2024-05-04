@@ -2,7 +2,7 @@
 *  Ce programme permet de simuler le fameux jeux d'echec selon plusieurs mises en situations differentes. 
 * \file   td6.cpp
 * \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date   21 avril 2024
+* \date   3 mai 2024
 * Créé le  1 avril 2024
 */
 
