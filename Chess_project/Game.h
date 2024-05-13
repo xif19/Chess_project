@@ -121,8 +121,7 @@ public:
 private:
 	shared_ptr<Board> board_;
 	Color currentPlayer_;
+
+
 	int BOARD_MAX_SIZE = 8;
 };
-
-
-

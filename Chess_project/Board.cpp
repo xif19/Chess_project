@@ -160,6 +160,19 @@ void Board::initBoard2() {
 	}
 }
 
+void Board::initBoard3() {
+	map<shared_ptr<Piece>, pair<int, int>> board0 = { { make_shared<Piece>(Color::WHITE, Type::BISHOP),make_pair(1,1)},
+		{make_shared<Piece>(Color::WHITE, Type::BISHOP), make_pair(4,3)}, { make_shared<Piece>(Color::BLACK, Type::KING), make_pair(6,4)},
+		{ make_shared<Piece>(Color::BLACK, Type::BISHOP), make_pair(2,4)}, { make_shared<Piece>(Color::BLACK, Type::BISHOP), make_pair(7,1)},
+		{ make_shared<Piece>(Color::WHITE, Type::KING), make_pair(0,0)}
+	};
+	setBlackKing(make_pair(-1, -1));
+	setWhiteKing(make_pair(-1, -1));
+	for (auto const& [piece, pos] : board0) {
+		addPiece(piece, pos);
+	}
+}
+
 void Board::cleanBackendBoard() {
 	for (int i = 0; i < NB_LINES; i++) {
 		for (int j = 0; j < NB_COLUMNS; j++) {

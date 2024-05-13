@@ -9,9 +9,6 @@
 #include <QGraphicsScene>
 #include <qpushbutton.h>
 
-
-
-
 Chess_project::Chess_project(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::Chess_projectClass), game()
 {
@@ -21,26 +18,11 @@ Chess_project::Chess_project(QWidget* parent)
     initBoard(gridLayout);
     turnLabel("WHITE'S TURN");
 
-        
-    //TODO: add this in a function 
-    //The different options in the list widget 
-    QListWidgetItem* item = new QListWidgetItem(QIcon("Images/Rook_W"), "Rook Double Attack");
-    ui->listWidget->addItem(item);
-    QListWidgetItem* item2 = new QListWidgetItem(QIcon("Images/Queen_B"), "The Queen's Testing Gardens");
-    ui->listWidget->addItem(item2);
-    QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Pawn_W"), "Magnus Carlsen 1v1");
-    ui->listWidget->addItem(item3);
-        
-    ui->vBoxDeadWhite->parentWidget()->setStyleSheet("background-color: gray");
-    ui->vBoxDeadBlack->parentWidget()->setStyleSheet("background-color: gray");
-
 }
-
 
 Chess_project::~Chess_project()
 {
     delete ui;
-
     for (int col = 0; col < 8; col++) {
         for (int row = 0; row < 8; row++) {
                 QPushButton* button = gridButtons[row][col];
@@ -50,12 +32,23 @@ Chess_project::~Chess_project()
         
 }
     
-    
 void Chess_project::initBoard(QGridLayout* gridLayout) {
-
 
     gridLayout->setSpacing(0);
     gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    QListWidgetItem* item = new QListWidgetItem(QIcon("Images/Rook_W"), "Rook Double Attack");
+    ui->listWidget->addItem(item);
+    QListWidgetItem* item2 = new QListWidgetItem(QIcon("Images/Queen_W"), "The Queen's Testing Gardens");
+    ui->listWidget->addItem(item2);
+    QListWidgetItem* item3 = new QListWidgetItem(QIcon("Images/Pawn_W"), "Classic Chess");
+    ui->listWidget->addItem(item3);
+    QListWidgetItem* item4 = new QListWidgetItem(QIcon("Images/Bishop_W"), "Bishop Counter Attack");
+    ui->listWidget->addItem(item4);
+        
+    ui->vBoxDeadWhite->parentWidget()->setStyleSheet("background-color: gray");
+    ui->vBoxDeadBlack->parentWidget()->setStyleSheet("background-color: gray");
+
 
     //Preloading images in the vector 
     pieceImages.append(QPixmap("Images/King_B.png")); //0
@@ -131,11 +124,19 @@ void Chess_project::on_acceptMenuButton_clicked() {
             loadPiecesOnBoard();
         }
 
-        if (ui->listWidget->currentItem()->text() == "Magnus Carlsen 1v1") {
+        if (ui->listWidget->currentItem()->text() == "Classic Chess") {
             game.getBoard()->cleanBackendBoard();
             clearBoard();
             clearAllDeadPiecesLayouts();
             game.getBoard()->initBoard2();
+            loadPiecesOnBoard();
+        }
+
+        if (ui->listWidget->currentItem()->text() == "Bishop Counter Attack") {
+            game.getBoard()->cleanBackendBoard();
+            clearBoard();
+            clearAllDeadPiecesLayouts();
+            game.getBoard()->initBoard3();
             loadPiecesOnBoard();
         }
 }
@@ -159,8 +160,10 @@ void Chess_project::interactWithPiece(pair<int, int> pos) {
                 QPushButton* newButton = gridButtons[pos.first][pos.second];
                 putIcon(newButton, findImage(currentPiece));
 
+                if (currentPiece->getType() == Type::PAWN && currentPiece->getFirstTurn() == true) {
+                    currentPiece->setFirstTurn(false); //Check the pawn first turn 
+                }
 
-                qDebug() << "piece moved";
                 switchPlayerTurn();
                 pair<int, int> pos = game.getBoard()->getPosKing(game.getCurrentPlayer());
 

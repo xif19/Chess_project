@@ -11,6 +11,11 @@ public:
 	Piece(Color color, Type type);
 	~Piece() {};
 
+	//Setters
+	void setFirstTurn(bool firstTurn) {
+		firstTurn_ = firstTurn;
+	}
+
 	//Getters
 	Type getType() {
 		return type_;
@@ -20,9 +25,14 @@ public:
 		return color_;
 	}
 
+	bool getFirstTurn() {
+		return firstTurn_;
+	}
+
 private:
 	Color color_;
 	Type type_;
+	bool firstTurn_;
 };
 
 

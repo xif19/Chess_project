@@ -191,6 +191,7 @@ private:
     shared_ptr<Piece> currentPiece;
     pair<int, int> oldPos;
     bool isPieceClicked = false;
+    
 
     Game game;
 

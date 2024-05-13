@@ -109,7 +109,13 @@ vector<pair<int, int>> Game::getMoveValidQueen(pair<int, int> pos) {
 
 vector<pair<int, int>> Game::getMoveValidPawn(pair<int, int> pos) {
 	vector<pair<int, int>> directions;
-	if (board_->getPieceAtPos(pos)->getColor() == Color::BLACK)
+	if (board_->getPieceAtPos(pos)->getColor() == Color::BLACK && board_->getPieceAtPos(pos)->getFirstTurn() == true) {
+		directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0), make_pair(-2, 0)};//Black first turn
+	}
+	else if (board_->getPieceAtPos(pos)->getColor() == Color::WHITE && board_->getPieceAtPos(pos)->getFirstTurn() == true) {
+		directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0), make_pair(2, 0)};//White first turn
+	}
+	else if (board_->getPieceAtPos(pos)->getColor() == Color::BLACK && board_->getPieceAtPos(pos)->getFirstTurn() == false)
 		directions = { make_pair(-1,1), make_pair(-1,-1), make_pair(-1,0) };//Black
 	else
 		directions = { make_pair(1,1), make_pair(1,-1), make_pair(1,0) };//White

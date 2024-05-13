@@ -4,4 +4,5 @@
 Piece::Piece(Color color, Type type) {
 	color_ = color;
 	type_ = type;
+	firstTurn_ = true;
 }
