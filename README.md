@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to my chess project version 1.0 !
 I made this chess project in C++, using QT for the front end. It was a simple, yet interesting project to make.
-I hope you have fun trying it or looking at the code. 
+I hope you have fun trying it or looking at the code. I did not do the code alone, I'm not the only proprietary of the code. 
 
 All the code has been commented to make it easy to read. All the algorithms for the pieces have been implemented and the code is well structured. 
 
@@ -18,6 +18,10 @@ All you need to do is to install unzip the folder and click on the chess_project
 > Note that it only works for windows x64
 
 ## Features 
+
+### Chess Game
+
+You can play chess! That's a cool feature for a chess project. 
 
 ### Situation Menu
 At first when you will launch the program, you will see an empty board. You have 4 different choices and they're each a different situation. 
