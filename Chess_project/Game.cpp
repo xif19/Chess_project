@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 bool Game::isPiecePlayer(pair<int, int> pos, Color playerColor) {
 	if (board_->isOccupied(pos)) {
 		return board_->getPieceAtPos(pos)->getColor() == playerColor;

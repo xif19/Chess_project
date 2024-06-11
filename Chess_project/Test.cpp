@@ -1,11 +1,3 @@
-/**
-*  Ce programme permet tester le jeu d'échec
-* \file   Test.cpp
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date    3 mai 2024
-* Créé le  3 mai 2024
-*/
-
 #include "Game.h"
 #include "Board.h"
 #include "Piece.h"

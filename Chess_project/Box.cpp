@@ -1,13 +1,4 @@
-/**
-* Cette classe gere les attributs d'une box et son contenu.
-* \file   Box.h
-* \author Maxence Grondin, Thomas Thibodeau et Matthew Hantar
-* \date  3 mai 2024
-* Créé le 1er avril 2024
-*/
-
 #include "Box.h"
-
 
 shared_ptr<Piece> Box::getPiece() const {
 	return piece_;
